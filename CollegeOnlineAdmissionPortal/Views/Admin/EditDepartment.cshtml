@@ -1,0 +1,26 @@
+﻿@model CollegeOnlineAdmissionPortal.Models.Department
+
+<div class="container mt-4">
+    <h3>Edit Department</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(m => m.DepartmentID)
+
+        <div class="mb-3">
+            <label>Department Name</label>
+            @Html.TextBoxFor(m => m.DepartmentName, new { @class = "form-control" })
+        </div>
+
+        <div class="mb-3">
+            <label>Department Code</label>
+            @Html.TextBoxFor(m => m.DepartmentCode, new { @class = "form-control" })
+        </div>
+
+        <button class="btn btn-success">Update</button>
+        <a href="@Url.Action("ManageDepartments","Admin")"
+           class="btn btn-secondary">Back</a>
+    }
+</div>

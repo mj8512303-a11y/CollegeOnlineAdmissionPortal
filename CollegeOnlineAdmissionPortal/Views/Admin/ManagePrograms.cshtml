@@ -1,0 +1,177 @@
+﻿
+@model IEnumerable<CollegeOnlineAdmissionPortal.Models.Program>
+
+@{
+    ViewBag.Title = "Manage Programs";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold">Manage Programs</h3>
+        <a href="@Url.Action("Dashboard","Admin")"
+           class="btn btn-outline-success">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <!-- SUCCESS POPUP -->
+    @if (TempData["Success"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '@TempData["Success"]',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        </script>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+    <!-- ADD PROGRAM FORM -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+
+            @using (Html.BeginForm("AddProgram", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="row g-3">
+
+                    <div class="col-md-3">
+                        <input type="text"
+                               name="ProgramName"
+                               class="form-control"
+                               placeholder="Program Name"
+                               required />
+                    </div>
+
+                    <div class="col-md-2">
+                        <input type="text"
+                               name="ProgramLevel"
+                               class="form-control"
+                               placeholder="Level (BS/MS)"
+                               required />
+                    </div>
+
+                    <div class="col-md-2">
+                        <input type="text"
+                               name="Duration"
+                               class="form-control"
+                               placeholder="Duration (4 Years)"
+                               required />
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.DropDownList("DepartmentID",
+                            new SelectList(ViewBag.Departments, "DepartmentID", "DepartmentName"),
+                            "Select Department",
+                            new { @class = "form-select", required = "required" })
+                    </div>
+
+                    <div class="col-md-2">
+                        <button class="btn btn-primary w-100">
+                            <i class="fa-solid fa-plus"></i> Add
+                        </button>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    </div>
+
+    <!-- PROGRAM TABLE -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <table class="table table-hover align-middle text-center">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Program Name</th>
+                        <th>Level</th>
+                        <th>Duration</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                        <th width="120">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var prog in Model)
+                    {
+                        <tr>
+                            <td>@prog.ProgramID</td>
+                            <td>@prog.ProgramName</td>
+                            <td>@prog.ProgramLevel</td>
+                            <td>@prog.Duration</td>
+                            <td>@*@prog.Department?.DepartmentName*@@(prog.Department != null ? prog.Department.DepartmentName : "")</td>
+
+                            <td>
+                                @if (prog.IsActive)
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Inactive</span>
+                                }
+                            </td>
+
+                            <td>
+
+                                <!-- Edit -->
+                                <a href="@Url.Action("EditProgram","Admin", new { id = prog.ProgramID })"
+                                   class="btn btn-sm btn-light border shadow-sm me-1"
+                                   title="Edit">
+                                    <i class="fa-regular fa-pen-to-square text-primary"></i>
+                                </a>
+
+                                <!-- Delete -->
+                                <a href="javascript:void(0);"
+                                   onclick="confirmDelete(@prog.ProgramID)"
+                                   class="btn btn-sm btn-light border shadow-sm"
+                                   title="Delete">
+                                    <i class="fa-regular fa-trash-can text-danger"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- DELETE CONFIRMATION -->
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This program will be deleted permanently!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/Admin/DeleteProgram/' + id;
+            }
+        });
+    }
+</script>

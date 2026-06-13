@@ -1,0 +1,166 @@
+﻿@*@model CollegeOnlineAdmissionPortal.Models.ViewModels.ApplicantDashboardViewModel
+    --@using CollegeOnlineAdmissionPortal.Models
+    @using System.Collections.Generic
+
+    @{
+        ViewBag.Title = "Applicant Dashboard";
+        Layout = "~/Views/Shared/_ApplicantLayout.cshtml";
+    }
+
+    <h3 class="mb-4">Welcome, @ViewBag.ApplicantName 👋</h3>
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-file-earmark-text fs-1 text-primary"></i>
+                    <h5 class="mt-2">Applications</h5>
+                    <h3>@ViewBag.Applications.Count</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-cash-stack fs-1 text-success"></i>
+                    <h5 class="mt-2">Payments</h5>
+                    <h3>@ViewBag.Payments.Count</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-award fs-1 text-warning"></i>
+                    <h5 class="mt-2">Admission Status</h5>
+                    -->
+                    <h6>
+                        @(ViewBag.Applications.Any()
+                ? ViewBag.Applications[0].Status
+                : "Not Applied")
+                    </h6>
+                    @{
+                        var applications = ViewBag.Applications as IEnumerable<dynamic>;
+                    }
+                    @(applications != null && applications.Count() > 0
+        ? applications.First().Status
+        : "Not Applied")
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <h3>My Applications</h3>
+
+    @if (ViewBag.Applications != null && ViewBag.Applications.Count > 0)
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Program</th>
+                    <th>Academic Year</th>
+                    <th>Application Status</th>
+                    <th>Payment Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var app in ViewBag.Applications as List<ApplicationForm>)
+                {
+                    var payments = ViewBag.Payments as List<Payment>;
+                    var payment = payments.FirstOrDefault(p => p.ApplicantID == app.ApplicantID);
+
+                    <tr>
+                        <td>@app.ProgramAppliedFor</td>
+                        <td>@app.AcademicYear</td>
+
+                        <td>
+                            <span class="badge @(app.Status == "Approved" ? "bg-success" : "bg-danger")">
+                                @app.Status
+                            </span>
+                        </td>
+
+                        <td>
+                            @if (payment != null && payment.PaymentStatus == "Paid")
+                            {
+                                <span class="badge bg-success">Paid</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning">Pending</span>
+                            }
+                        </td>
+
+                        <td>
+                            <a href="@Url.Action("EditApplication", "Applicant", new { id = app.ApplicantID })"
+                               class="btn btn-sm btn-warning">Edit</a>
+
+                            <a href="@Url.Action("DeleteApplication", "Applicant", new { id = app.ApplicantID })"
+                               class="btn btn-sm btn-danger"
+                               onclick="return confirm('Are you sure?')">Delete</a>
+
+                            @if (app.Status == "Approved" && (payment == null || payment.PaymentStatus != "Paid"))
+                            {
+                                <a href="@Url.Action("MakePayment", "Payment", new { appId = app.ApplicantID })"
+                                   class="btn btn-sm btn-primary">Pay Now</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        <p>No approved/rejected applications found.</p>
+    }*@
+@model CollegeOnlineAdmissionPortal.Models.ViewModels.ApplicantDashboardViewModel
+
+
+@{
+    ViewBag.Title = "Applicant Dashboard";
+    Layout = "~/Views/Shared/_ApplicantLayout.cshtml";
+}
+
+<h3 class="mb-4">Welcome, @Model.ApplicantName 👋</h3>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-file-earmark-text fs-1 text-primary"></i>
+                <h5>Applications</h5>
+                <h3>@Model.TotalApplications</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-cash-stack fs-1 text-success"></i>
+                <h5>Payments</h5>
+                <h3>@Model.TotalPayments</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-award fs-1 text-warning"></i>
+                <h5>Admission Status</h5>
+                <h6>@Model.AdmissionStatus</h6>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr />
+

@@ -1,0 +1,94 @@
+﻿@*@{
+        ViewBag.Title = "Create Merit List";
+    }
+
+    <h2>Create Merit List</h2>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <div class="form-group mb-3">
+        <label>Select Program</label>
+        @Html.DropDownList(
+            "ProgramID",
+            new SelectList(ViewBag.Programs, "ProgramID", "ProgramName"),
+            "Select Program",
+            new { @class = "form-control", id = "ProgramID" }
+        )
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Academic Year</label>
+        <input type="text" id="AcademicYear" class="form-control" placeholder="2024-2025" />
+    </div>
+
+    <button type="button" id="createMerit" class="btn btn-primary">
+        Create Merit List
+    </button>
+
+    @section Scripts{
+        <script>
+            $(document).ready(function () {
+
+                $("#createMerit").click(function () {
+
+                    $.ajax({
+                        url: "/Incharge/CreateMeritListAjax",
+                        type: "POST",
+                        data: {
+                            ProgramID: $("#ProgramID").val(),
+                            AcademicYear: $("#AcademicYear").val()
+                        },
+                        success: function (res) {
+                            alert(res.message);
+                        },
+                        error: function () {
+                            alert("Server error");
+                        }
+                    });
+
+                });
+
+                console.log("Create Merit List JS working ✅");
+            });
+        </script>
+    }*@
+@{
+    ViewBag.Title = "Create Merit List";
+}
+
+<h3>Create Merit List</h3>
+
+<select id="ProgramID" class="form-control mb-2">
+    <option value="">Select Program</option>
+    @foreach (var p in ViewBag.Programs)
+    {
+        <option value="@p.ProgramID">@p.ProgramName</option>
+    }
+</select>
+
+<input type="text" id="AcademicYear" class="form-control mb-2" placeholder="2025-2026" />
+
+<button class="btn btn-success" onclick="createMerit()">Create Merit List</button>
+<a href="@Url.Action("Dashboard", "Incharge")"
+   class="btn btn-outline-dark btn-sm">
+    <i class="bi bi-arrow-left-circle me-1"></i>
+    ⬅ Back to Dashboard
+</a>
+
+<script>
+    function createMerit() {
+        $.post('/Incharge/CreateMeritListAjax', {
+            ProgramID: $('#ProgramID').val(),
+            AcademicYear: $('#AcademicYear').val()
+        }, function (res) {
+            alert(res.message);
+        });
+    }
+</script>

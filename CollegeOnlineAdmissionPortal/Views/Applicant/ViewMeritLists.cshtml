@@ -1,0 +1,374 @@
+﻿@*@model List<CollegeOnlineAdmissionPortal.Models.ViewModels.MeritViewModel>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <div class="container mt-4">
+
+        <h2 class="text-center fw-bold text-primary mb-4">
+            <i class="bi bi-award-fill"></i> Merit List
+        </h2>
+
+        @if (!Model.Any())
+        {
+            <div class="alert alert-warning text-center">
+                No applicants found.
+            </div>
+        }
+        else
+        {
+            <div class="card shadow-lg mb-4 border-0 rounded-4">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-0">@Model.First().Course (@Model.First().AcademicYear)</h5>
+                    </div>
+                    <div class="text-end">
+                        <i class="bi bi-calendar-event-fill"></i>
+                        Published: @(Model.FirstOrDefault()?.PublishedDate?.ToString("dd-MMM-yyyy") ?? "Not Published")
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
+                        <input type="text" class="form-control w-auto" id="searchInput" placeholder="🔍 Search applicant..." />
+                        <div>
+                            <button class="btn btn-outline-success me-2" onclick="window.print()">
+                                <i class="bi bi-printer-fill"></i> Print
+                            </button>
+                            <button class="btn btn-outline-primary" onclick="exportToPDF()">
+                                <i class="bi bi-file-earmark-pdf-fill"></i> Export PDF
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover text-center align-middle" id="meritTable">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Applicant Name</th>
+                                    <th>Total Marks</th>
+                                    <th>Percentage</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    string rowClass = item.Rank == 1 ? "table-warning" :
+                                                      item.Rank == 2 ? "table-secondary" :
+                                                      item.Rank == 3 ? "table-info" : "";
+
+                                    <tr class="@rowClass">
+                                        <td class="fw-bold">
+                                            @item.Rank
+                                            @if (item.Rank == 1)
+                                            {<span class="badge bg-warning text-dark"><i class="bi bi-trophy-fill"></i> 🥇</span> }
+                                            else if (item.Rank == 2)
+                                            { <span class="badge bg-secondary"><i class="bi bi-trophy-fill"></i> 🥈</span> }
+                                            else if (item.Rank == 3)
+                                            { <span class="badge bg-info text-dark"><i class="bi bi-trophy-fill"></i> 🥉</span>}
+                                        </td>
+                                        <td>@item.ApplicantName</td>
+                                        <td class="fw-bold text-success">@item.TotalMarks</td>
+                                        <td class="fw-bold text-primary">@item.Percentage.ToString("0.00") %</td>
+                                        <td>
+                                            @if (item.Status == "Selected")
+                                            {<span class="badge bg-success"><i class="bi bi-check-circle-fill"></i> Selected</span> }
+                                            else
+                                            { <span class="badge bg-danger"><i class="bi bi-clock-fill"></i> Waiting</span>}
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-flex justify-content-start mt-3">
+                        <a href="@Url.Action("Dashboard", "Applicant")" class="btn btn-outline-primary btn-lg shadow-sm">
+                            <i class="bi bi-arrow-left-circle-fill"></i> Back to Dashboard
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+    <script>
+        // Search Filter
+        document.getElementById('searchInput').addEventListener('keyup', function () {
+            var filter = this.value.toUpperCase();
+            var rows = document.querySelectorAll('#meritTable tbody tr');
+            rows.forEach(function (row) {
+                var name = row.cells[1].textContent.toUpperCase();
+                row.style.display = name.indexOf(filter) > -1 ? '' : 'none';
+            });
+        });
+
+
+
+
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'pt', 'a4');
+
+            // Table header
+            const head = [['Rank', 'Applicant Name', 'Total Marks', 'Percentage', 'Status']];
+
+            // Table body from HTML table
+            const body = [];
+            const rows = document.querySelectorAll('#meritTable tbody tr');
+            rows.forEach(row => {
+                const rowData = [];
+                for (let i = 0; i < row.cells.length; i++) {
+                    rowData.push(row.cells[i].innerText.trim());
+                }
+                body.push(rowData);
+            });
+
+            doc.autoTable({
+                head: head,
+                body: body,
+                startY: 40,
+                theme: 'grid',
+                headStyles: { fillColor: [0, 123, 255] },
+                alternateRowStyles: { fillColor: [245, 245, 245] },
+                styles: { fontSize: 10 }
+            });
+
+            // Add title
+            doc.setFontSize(16);
+            doc.text('Merit List', 40, 25);
+
+            const fileName = 'MeritList_' + new Date().toISOString().slice(0, 10) + '.pdf';
+            doc.save(fileName);
+
+            Swal.fire({
+                icon: 'success',
+                title: 'PDF Generated!',
+                text: 'Merit List has been successfully exported as PDF.',
+                confirmButtonText: 'OK'
+            });
+            doc.text('Program: ' + programName, 40, 20);
+            doc.text('Academic Year: ' + academicYear, 40, 35);
+            doc.text('Published: ' + publishedDate, 40, 50);
+        }
+    </script>
+
+
+    <style>
+        /* Hover effect for top 3 */
+        .table-warning:hover, .table-secondary:hover, .table-info:hover {
+            transform: scale(1.02);
+            transition: 0.3s;
+        }
+
+        /* Badge spacing */
+        .badge i {
+            margin-right: 4px;
+        }
+
+        /* Responsive search + buttons gap */
+        @@media(max-width:768px) {
+            .d-flex.flex-wrap.gap-2 {
+                flex-direction: column !important;
+            }
+        }
+
+
+        /* Popup background color example */
+        .swal2-popup {
+            font-size: 1.1rem;
+        }
+
+        /* PDF Export button hover */
+        .btn-outline-primary:hover {
+            background-color: #0d6efd;
+            color: white;
+            transition: 0.3s;
+        }
+    </style>*@
+@model List<CollegeOnlineAdmissionPortal.Models.ViewModels.MeritViewModel>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container mt-4">
+
+    <h2 class="text-center fw-bold text-primary mb-4">
+        <i class="bi bi-award-fill"></i> Merit List
+    </h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning text-center">
+            No applicants found.
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-lg mb-4 border-0 rounded-4">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">@Model.First().Course (@Model.First().AcademicYear)</h5>
+                <div>
+                    <i class="bi bi-calendar-event-fill"></i>
+                    Published: @(Model.FirstOrDefault()?.PublishedDate?.ToString("dd-MMM-yyyy") ?? "Not Published")
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
+                    <input type="text" class="form-control w-auto" id="searchInput" placeholder="🔍 Search applicant..." />
+                    <div>
+                        <button class="btn btn-outline-success me-2" onclick="window.print()">
+                            <i class="bi bi-printer-fill"></i> Print
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="exportToPDF()">
+                            <i class="bi bi-file-earmark-pdf-fill"></i> Export PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover text-center align-middle" id="meritTable">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Rank</th>
+                                <th>Applicant Name</th>
+                                <th>Total Marks</th>
+                                <th>Percentage</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                string rowClass = item.Rank == 1 ? "table-warning" :
+                                                  item.Rank == 2 ? "table-secondary" :
+                                                  item.Rank == 3 ? "table-info" :
+                                                  item.IsCurrentApplicant ? "table-success" : "";
+
+                                <tr class="@rowClass">
+                                    <td class="fw-bold">
+                                        @item.Rank
+                                        @if (item.Rank == 1)
+                                        {<span class="badge bg-warning text-dark"><i class="bi bi-trophy-fill"></i> 🥇</span> }
+                                        else if (item.Rank == 2)
+                                        { <span class="badge bg-secondary"><i class="bi bi-trophy-fill"></i> 🥈</span> }
+                                        else if (item.Rank == 3)
+                                        { <span class="badge bg-info text-dark"><i class="bi bi-trophy-fill"></i> 🥉</span>}
+                                    </td>
+                                    <td>@item.ApplicantName</td>
+                                    <td class="fw-bold text-success">@item.TotalMarks</td>
+                                    <td class="fw-bold text-primary">@item.Percentage.ToString("0.00") %</td>
+                                    <td>
+                                        @if (item.Status == "Selected")
+                                        {<span class="badge bg-success"><i class="bi bi-check-circle-fill"></i> Selected</span> }
+                                        else
+                                        { <span class="badge bg-danger"><i class="bi bi-clock-fill"></i> Waiting</span>}
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-3">
+                    <a href="@Url.Action("Dashboard", "Applicant")" class="btn btn-outline-primary btn-lg shadow-sm">
+                        <i class="bi bi-arrow-left-circle-fill"></i> Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        var filter = this.value.toUpperCase();
+        var rows = document.querySelectorAll('#meritTable tbody tr');
+        rows.forEach(function (row) {
+            var name = row.cells[1].textContent.toUpperCase();
+            row.style.display = name.indexOf(filter) > -1 ? '' : 'none';
+        });
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function exportToPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF('p', 'pt', 'a4');
+
+        // Table header
+        const head = [['Rank', 'Applicant Name', 'Total Marks', 'Percentage', 'Status']];
+
+        // Table body
+        const body = [];
+        const rows = document.querySelectorAll('#meritTable tbody tr');
+        rows.forEach(row => {
+            const rowData = [];
+            for (let i = 0; i < row.cells.length; i++) {
+                rowData.push(row.cells[i].innerText.trim());
+            }
+            body.push(rowData);
+        });
+
+        // AutoTable
+        doc.autoTable({
+            head: head,
+            body: body,
+            startY: 60,
+            theme: 'grid',
+            headStyles: { fillColor: [0, 123, 255], textColor: 255 },
+            alternateRowStyles: { fillColor: [245, 245, 245] },
+            styles: { fontSize: 10 },
+            didParseCell: function (data) {
+                // Highlight top 3 ranks
+                if (data.row.index === 0) data.cell.styles.fillColor = [255, 223, 0];      // 🥇
+                else if (data.row.index === 1) data.cell.styles.fillColor = [192, 192, 192]; // 🥈
+                else if (data.row.index === 2) data.cell.styles.fillColor = [173, 216, 230]; // 🥉
+
+                // Highlight current applicant row green
+                const rowClass = rows[data.row.index].classList;
+                if (rowClass.contains('table-success')) {
+                    data.cell.styles.fillColor = [198, 239, 206]; // light green
+                }
+            }
+        });
+
+        // Title
+        doc.setFontSize(16);
+        doc.text('Merit List', 40, 30);
+        const programName = document.querySelector('.card-header h5')?.innerText || '';
+        doc.setFontSize(12);
+        doc.text(programName, 40, 45);
+
+        const fileName = 'MeritList_' + new Date().toISOString().slice(0, 10) + '.pdf';
+        doc.save(fileName);
+
+        Swal.fire({
+            icon: 'success',
+            title: 'PDF Generated!',
+            text: 'Merit List has been successfully exported.',
+            confirmButtonText: 'OK'
+        });
+    }
+</script>
+
+<style>
+    /* Hover effect for top 3 & current applicant */
+    .table-warning:hover, .table-secondary:hover, .table-info:hover, .table-success:hover {
+        transform: scale(1.02);
+        transition: 0.3s;
+    }
+
+    .badge i {
+        margin-right: 4px;
+    }
+</style>

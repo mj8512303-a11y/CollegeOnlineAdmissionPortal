@@ -1,0 +1,201 @@
+﻿<!--<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Applicant Panel</title>-->
+<!-- Bootstrap + Icons -->
+<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            background: #f4f6f9;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            height: 100vh;
+            position: fixed;
+            background: #0d6efd;
+            color: white;
+        }
+
+            .sidebar h5 {
+                padding: 20px;
+                border-bottom: 1px solid rgba(255,255,255,0.2);
+            }
+
+            .sidebar a {
+                display: block;
+                padding: 12px 20px;
+                color: white;
+                text-decoration: none;
+            }
+
+                .sidebar a:hover {
+                    background: rgba(255,255,255,0.15);
+                }
+
+        .main {
+            margin-left: 260px;
+        }
+
+        .topbar {
+            background: white;
+            padding: 15px 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .content {
+            padding: 25px;
+        }
+    </style>
+</head>
+<body>-->
+<!-- SIDEBAR -->
+<!--<div class="sidebar">
+    <h5>🎓 Applicant Panel</h5>
+
+    <a href="#" data-url="@Url.Action("Dashboard","Applicant")">
+        <i class="bi bi-speedometer2"></i> Dashboard
+    </a>
+
+    <a href="#" data-url="@Url.Action("MyApplications","Applicant")">
+        <i class="bi bi-file-earmark-text"></i> My Application
+    </a>
+
+    <a href="#" data-url="@Url.Action("ViewMeritLists","Applicant")">
+        <i class="bi bi-list-ol"></i> Merit Lists
+    </a>
+
+    <a href="@Url.Action("Logout","Applicant")">
+        <i class="bi bi-box-arrow-right"></i> Logout
+    </a>
+</div>-->
+<!-- MAIN -->
+<!--<div class="main">
+        <div class="topbar">
+            Welcome, <strong>@Session["UserName"]</strong>
+        </div>
+
+        <div class="content" id="pageContent">
+          
+        </div>
+    </div>
+
+    <script>
+    $(".sidebar a[data-url]").click(function (e) {
+        e.preventDefault();
+
+        let url = $(this).data("url");
+
+        $("#pageContent").html("<div class='text-center mt-5'>Loading...</div>");
+
+        $("#pageContent").load(url);
+    });
+    </script>
+
+</body>
+</html>-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Applicant Panel</title>
+
+    <!-- Bootstrap + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f4f6f9;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            height: 100vh;
+            position: fixed;
+            background: #0d6efd;
+            color: white;
+        }
+
+            .sidebar h5 {
+                padding: 20px;
+                border-bottom: 1px solid rgba(255,255,255,0.2);
+            }
+
+            .sidebar a {
+                display: block;
+                padding: 12px 20px;
+                color: white;
+                text-decoration: none;
+            }
+
+                .sidebar a:hover,
+                .sidebar a.active {
+                    background: rgba(255,255,255,0.15);
+                }
+
+        .main {
+            margin-left: 260px;
+        }
+
+        .topbar {
+            background: white;
+            padding: 15px 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .content {
+            padding: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h5>🎓 Applicant Panel</h5>
+
+        <a href="@Url.Action("Dashboard","Applicant")">
+            <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+
+        <a href="@Url.Action("Apply","Applicant")">
+            <i class="bi bi-file-earmark-text"></i> My Application
+        </a>
+
+        <a href="@Url.Action("ViewMeritLists","Applicant")">
+            <i class="bi bi-list-ol"></i> Merit Lists
+        </a>
+        
+        <a class="nav-link d-flex align-items-center" href="@Url.Action("MakePayment", "Applicant")">
+            <i class="bi bi-credit-card-fill me-2"></i> Make Payment
+        </a>
+       
+
+        <a href="@Url.Action("Logout","Applicant")">
+            <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+        <div class="topbar">
+            Welcome, <strong>@Session["UserName"]</strong>
+        </div>
+
+        <div class="content">
+            @RenderBody()   <!-- ✅ ONLY ONE RENDER -->
+        </div>
+    </div>
+
+</body>
+</html>
+

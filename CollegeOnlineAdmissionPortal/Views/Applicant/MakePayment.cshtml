@@ -1,0 +1,30 @@
+﻿@model CollegeOnlineAdmissionPortal.Models.Payment
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary fw-bold mb-4"><i class="bi bi-credit-card-fill"></i> Make Payment</h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    @using (Html.BeginForm("MakePayment", "Applicant", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.AmountPaid, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.AmountPaid, new { @class = "form-control", type = "number", step = "0.01", placeholder = "Enter Amount" })
+            @Html.ValidationMessageFor(m => m.AmountPaid, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.PaymentMethod, new { @class = "form-label" })
+            @Html.DropDownListFor(m => m.PaymentMethod, new SelectList(new[] { "Cash", "Bank Transfer", "Online" }), "Select Method", new { @class = "form-select" })
+            @Html.ValidationMessageFor(m => m.PaymentMethod, "", new { @class = "text-danger" })
+        </div>
+
+        <button type="submit" class="btn btn-primary"><i class="bi bi-check-circle-fill"></i> Submit Payment</button>
+        <a href="@Url.Action("Dashboard","Applicant")" class="btn btn-secondary ms-2"><i class="bi bi-arrow-left-circle-fill"></i> Back</a>
+    }
+</div>

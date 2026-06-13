@@ -1,0 +1,980 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C0EA5A30-F500-4DC8-98EF-615A1B2E9872}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CollegeOnlineAdmissionPortal</RootNamespace>
+    <AssemblyName>CollegeOnlineAdmissionPortal</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44394</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Select.Pdf, Version=25.2.0.0, Culture=neutral, PublicKeyToken=e0ae9f6e27a97018, processorArchitecture=MSIL">
+      <HintPath>..\packages\Select.Pdf.25.2.0\lib\net40\Select.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ApplicantController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InchargeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AcademicDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Admin.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AdminRegisterViewModel.cs" />
+    <Compile Include="Models\AdmissionIncharge.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Applicant.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApplicantRegisterViewModel.cs" />
+    <Compile Include="Models\ApplicationForm.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Department.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Document.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InchargeRegisterViewModel.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\MeritList.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Program.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewModels\ApplicantDashboardViewModel.cs" />
+    <Compile Include="Models\ViewModels\ApplyViewModel.cs" />
+    <Compile Include="Models\ViewModels\MeritViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Admin\assets\css\bootstrap.css" />
+    <Content Include="Content\Admin\assets\css\custom.css" />
+    <Content Include="Content\Admin\assets\css\font-awesome.css" />
+    <Content Include="Content\Admin\assets\font-awesome\fonts\fontawesome-webfontba72.svg" />
+    <Content Include="Content\Admin\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Admin\assets\img\1.png" />
+    <Content Include="Content\Admin\assets\img\2.png" />
+    <Content Include="Content\Admin\assets\img\3.png" />
+    <Content Include="Content\Admin\assets\img\4.png" />
+    <Content Include="Content\Admin\assets\img\find_user.png" />
+    <Content Include="Content\Admin\assets\img\iub.jpg" />
+    <Content Include="Content\Admin\assets\js\bootstrap.min.js" />
+    <Content Include="Content\Admin\assets\js\custom.js" />
+    <Content Include="Content\Admin\assets\js\dataTables\dataTables.bootstrap.css" />
+    <Content Include="Content\Admin\assets\js\dataTables\dataTables.bootstrap.js" />
+    <Content Include="Content\Admin\assets\js\dataTables\jquery.dataTables.js" />
+    <Content Include="Content\Admin\assets\js\jquery-1.10.2.js" />
+    <Content Include="Content\Admin\assets\js\jquery.metisMenu.js" />
+    <Content Include="Content\Admin\assets\js\morris\morris-0.4.3.min.css" />
+    <Content Include="Content\Admin\assets\js\morris\morris.js" />
+    <Content Include="Content\Admin\assets\js\morris\raphael-2.1.0.min.js" />
+    <Content Include="Content\Admin\css\app-rtl.css" />
+    <Content Include="Content\Admin\css\app.css" />
+    <Content Include="Content\Admin\css\bootstrap-rtl.css" />
+    <Content Include="Content\Admin\css\bootstrap.css" />
+    <Content Include="Content\Admin\css\theme-a.css" />
+    <Content Include="Content\Admin\css\theme-b.css" />
+    <Content Include="Content\Admin\css\theme-c.css" />
+    <Content Include="Content\Admin\css\theme-d.css" />
+    <Content Include="Content\Admin\css\theme-e.css" />
+    <Content Include="Content\Admin\css\theme-f.css" />
+    <Content Include="Content\Admin\css\theme-g.css" />
+    <Content Include="Content\Admin\css\theme-h.css" />
+    <Content Include="Content\Admin\img\bg1.jpg" />
+    <Content Include="Content\Admin\img\bg10.jpg" />
+    <Content Include="Content\Admin\img\bg2.jpg" />
+    <Content Include="Content\Admin\img\bg3.jpg" />
+    <Content Include="Content\Admin\img\bg4.jpg" />
+    <Content Include="Content\Admin\img\bg5.jpg" />
+    <Content Include="Content\Admin\img\bg6.jpg" />
+    <Content Include="Content\Admin\img\bg7.jpg" />
+    <Content Include="Content\Admin\img\bg8.jpg" />
+    <Content Include="Content\Admin\img\bg9.jpg" />
+    <Content Include="Content\Admin\img\dummy.png" />
+    <Content Include="Content\Admin\img\lock-bg.jpg" />
+    <Content Include="Content\Admin\img\logo-single.png" />
+    <Content Include="Content\Admin\img\logo.png" />
+    <Content Include="Content\Admin\img\mb-sample.jpg" />
+    <Content Include="Content\Admin\img\mockup.png" />
+    <Content Include="Content\Admin\img\profile-bg.jpg" />
+    <Content Include="Content\Admin\img\user\01.jpg" />
+    <Content Include="Content\Admin\img\user\02.jpg" />
+    <Content Include="Content\Admin\img\user\03.jpg" />
+    <Content Include="Content\Admin\img\user\04.jpg" />
+    <Content Include="Content\Admin\img\user\05.jpg" />
+    <Content Include="Content\Admin\img\user\06.jpg" />
+    <Content Include="Content\Admin\img\user\07.jpg" />
+    <Content Include="Content\Admin\img\user\08.jpg" />
+    <Content Include="Content\Admin\img\user\09.jpg" />
+    <Content Include="Content\Admin\img\user\10.jpg" />
+    <Content Include="Content\Admin\img\user\11.jpg" />
+    <Content Include="Content\Admin\img\user\12.jpg" />
+    <Content Include="Content\Admin\img\user\13.jpg" />
+    <Content Include="Content\Admin\js\app.js" />
+    <Content Include="Content\Admin\vendor\%40ttskch\select2-bootstrap4-theme\dist\select2-bootstrap4.css" />
+    <Content Include="Content\Admin\vendor\animate.css\animate.css" />
+    <Content Include="Content\Admin\vendor\animo\animo.js" />
+    <Content Include="Content\Admin\vendor\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />
+    <Content Include="Content\Admin\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="Content\Admin\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="Content\Admin\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="Content\Admin\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="Content\Admin\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="Content\Admin\vendor\bootstrap-colorpicker\dist\js\bootstrap-colorpicker.js" />
+    <Content Include="Content\Admin\vendor\bootstrap-datepicker\dist\css\bootstrap-datepicker.css" />
+    <Content Include="Content\Admin\vendor\bootstrap-datepicker\dist\js\bootstrap-datepicker.js" />
+    <Content Include="Content\Admin\vendor\bootstrap-filestyle\src\bootstrap-filestyle.js" />
+    <Content Include="Content\Admin\vendor\bootstrap-slider\dist\bootstrap-slider.js" />
+    <Content Include="Content\Admin\vendor\bootstrap-slider\dist\css\bootstrap-slider.css" />
+    <Content Include="Content\Admin\vendor\bootstrap-tagsinput\dist\bootstrap-tagsinput.css" />
+    <Content Include="Content\Admin\vendor\bootstrap-tagsinput\dist\bootstrap-tagsinput.js" />
+    <Content Include="Content\Admin\vendor\bootstrap-wysiwyg\css\style.css" />
+    <Content Include="Content\Admin\vendor\bootstrap-wysiwyg\js\bootstrap-wysiwyg.min.js" />
+    <Content Include="Content\Admin\vendor\bootstrap\dist\css\bootstrap.css" />
+    <Content Include="Content\Admin\vendor\bootstrap\dist\js\bootstrap.js" />
+    <Content Include="Content\Admin\vendor\chart.js\dist\Chart.js" />
+    <Content Include="Content\Admin\vendor\chartist\dist\chartist.css" />
+    <Content Include="Content\Admin\vendor\chartist\dist\chartist.js" />
+    <Content Include="Content\Admin\vendor\chosen-js\chosen-sprite%402x.png" />
+    <Content Include="Content\Admin\vendor\chosen-js\chosen-sprite.png" />
+    <Content Include="Content\Admin\vendor\chosen-js\chosen.css" />
+    <Content Include="Content\Admin\vendor\chosen-js\chosen.jquery.js" />
+    <Content Include="Content\Admin\vendor\components-jqueryui\jquery-ui.js" />
+    <Content Include="Content\Admin\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\Admin\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\Admin\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\Admin\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\Admin\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\Admin\vendor\components-jqueryui\themes\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\Admin\vendor\components-jqueryui\themes\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\Admin\vendor\components-jqueryui\themes\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\Admin\vendor\components-jqueryui\themes\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\Admin\vendor\components-jqueryui\themes\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\Admin\vendor\components-jqueryui\themes\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\Admin\vendor\components-jqueryui\themes\smoothness\jquery-ui.css" />
+    <Content Include="Content\Admin\vendor\cropper\dist\cropper.css" />
+    <Content Include="Content\Admin\vendor\cropper\dist\cropper.js" />
+    <Content Include="Content\Admin\vendor\d3\d3.js" />
+    <Content Include="Content\Admin\vendor\datatables.net-bs4\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\Admin\vendor\datatables.net-bs4\js\dataTables.bootstrap4.js" />
+    <Content Include="Content\Admin\vendor\datatables.net-buttons-bs\css\buttons.bootstrap.css" />
+    <Content Include="Content\Admin\vendor\datatables.net-buttons-bs\js\buttons.bootstrap.js" />
+    <Content Include="Content\Admin\vendor\datatables.net-buttons\js\buttons.colVis.js" />
+    <Content Include="Content\Admin\vendor\datatables.net-buttons\js\buttons.flash.js" />
+    <Content Include="Content\Admin\vendor\datatables.net-buttons\js\buttons.html5.js" />
+    <Content Include="Content\Admin\vendor\datatables.net-buttons\js\buttons.print.js" />
+    <Content Include="Content\Admin\vendor\datatables.net-buttons\js\dataTables.buttons.js" />
+    <Content Include="Content\Admin\vendor\datatables.net-keytable-bs\css\keyTable.bootstrap.css" />
+    <Content Include="Content\Admin\vendor\datatables.net-keytable\js\dataTables.keyTable.js" />
+    <Content Include="Content\Admin\vendor\datatables.net-responsive-bs\css\responsive.bootstrap.css" />
+    <Content Include="Content\Admin\vendor\datatables.net-responsive-bs\js\responsive.bootstrap.js" />
+    <Content Include="Content\Admin\vendor\datatables.net-responsive\js\dataTables.responsive.js" />
+    <Content Include="Content\Admin\vendor\datatables.net\js\jquery.dataTables.js" />
+    <Content Include="Content\Admin\vendor\dropzone\dist\basic.css" />
+    <Content Include="Content\Admin\vendor\dropzone\dist\dropzone.css" />
+    <Content Include="Content\Admin\vendor\dropzone\dist\dropzone.js" />
+    <Content Include="Content\Admin\vendor\easy-pie-chart\dist\jquery.easypiechart.js" />
+    <Content Include="Content\Admin\vendor\fastclick\lib\fastclick.js" />
+    <Content Include="Content\Admin\vendor\flatdoc\flatdoc.js" />
+    <Content Include="Content\Admin\vendor\flot\jquery.flot.categories.js" />
+    <Content Include="Content\Admin\vendor\flot\jquery.flot.js" />
+    <Content Include="Content\Admin\vendor\flot\jquery.flot.pie.js" />
+    <Content Include="Content\Admin\vendor\flot\jquery.flot.resize.js" />
+    <Content Include="Content\Admin\vendor\flot\jquery.flot.time.js" />
+    <Content Include="Content\Admin\vendor\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\Admin\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Admin\vendor\fullcalendar\dist\fullcalendar.css" />
+    <Content Include="Content\Admin\vendor\fullcalendar\dist\fullcalendar.js" />
+    <Content Include="Content\Admin\vendor\fullcalendar\dist\gcal.js" />
+    <Content Include="Content\Admin\vendor\html5sortable\dist\html.sortable.js" />
+    <Content Include="Content\Admin\vendor\ika.jvectormap\jquery-jvectormap-1.2.2.css" />
+    <Content Include="Content\Admin\vendor\ika.jvectormap\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="Content\Admin\vendor\ika.jvectormap\jquery-jvectormap-us-mill-en.js" />
+    <Content Include="Content\Admin\vendor\ika.jvectormap\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Content\Admin\vendor\inputmask\dist\jquery.inputmask.bundle.js" />
+    <Content Include="Content\Admin\vendor\jqcloud2\dist\jqcloud.css" />
+    <Content Include="Content\Admin\vendor\jqcloud2\dist\jqcloud.js" />
+    <Content Include="Content\Admin\vendor\jquery-bootgrid\dist\jquery.bootgrid.css" />
+    <Content Include="Content\Admin\vendor\jquery-bootgrid\dist\jquery.bootgrid.fa.js" />
+    <Content Include="Content\Admin\vendor\jquery-bootgrid\dist\jquery.bootgrid.js" />
+    <Content Include="Content\Admin\vendor\jquery-knob\dist\jquery.knob.min.js" />
+    <Content Include="Content\Admin\vendor\jquery-localize\dist\jquery.localize.js" />
+    <Content Include="Content\Admin\vendor\jquery-slimscroll\jquery.slimscroll.js" />
+    <Content Include="Content\Admin\vendor\jquery-sparkline\jquery.sparkline.js" />
+    <Content Include="Content\Admin\vendor\jquery-steps\build\jquery.steps.js" />
+    <Content Include="Content\Admin\vendor\jquery-validation\dist\additional-methods.js" />
+    <Content Include="Content\Admin\vendor\jquery-validation\dist\jquery.validate.js" />
+    <Content Include="Content\Admin\vendor\jquery.easing\jquery.easing.js" />
+    <Content Include="Content\Admin\vendor\jquery.flot.spline\jquery.flot.spline.js" />
+    <Content Include="Content\Admin\vendor\jquery.flot.tooltip\js\jquery.flot.tooltip.js" />
+    <Content Include="Content\Admin\vendor\jquery.gmap\jquery.gmap.js" />
+    <Content Include="Content\Admin\vendor\jqueryui-touch-punch\jquery.ui.touch-punch.js" />
+    <Content Include="Content\Admin\vendor\jquery\dist\jquery.js" />
+    <Content Include="Content\Admin\vendor\js-storage\js.storage.js" />
+    <Content Include="Content\Admin\vendor\jszip\dist\jszip.js" />
+    <Content Include="Content\Admin\vendor\loaders.css\loaders.css" />
+    <Content Include="Content\Admin\vendor\matchmedia\index.js" />
+    <Content Include="Content\Admin\vendor\modernizr\modernizr.custom.js" />
+    <Content Include="Content\Admin\vendor\moment\min\moment-with-locales.js" />
+    <Content Include="Content\Admin\vendor\morris.js.so\morris.css" />
+    <Content Include="Content\Admin\vendor\morris.js.so\morris.js" />
+    <Content Include="Content\Admin\vendor\nestable\jquery.nestable.js" />
+    <Content Include="Content\Admin\vendor\parsleyjs\dist\parsley.js" />
+    <Content Include="Content\Admin\vendor\pdfmake\build\pdfmake.js" />
+    <Content Include="Content\Admin\vendor\pdfmake\build\vfs_fonts.js" />
+    <Content Include="Content\Admin\vendor\popper.js\dist\umd\popper.js" />
+    <Content Include="Content\Admin\vendor\raphael\raphael.js" />
+    <Content Include="Content\Admin\vendor\rickshaw\rickshaw.css" />
+    <Content Include="Content\Admin\vendor\rickshaw\rickshaw.js" />
+    <Content Include="Content\Admin\vendor\screenfull\dist\screenfull.js" />
+    <Content Include="Content\Admin\vendor\select2\dist\css\select2.css" />
+    <Content Include="Content\Admin\vendor\select2\dist\js\select2.full.js" />
+    <Content Include="Content\Admin\vendor\simple-line-icons\css\simple-line-icons.css" />
+    <Content Include="Content\Admin\vendor\simple-line-icons\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Content\Admin\vendor\spinkit\css\spinkit.css" />
+    <Content Include="Content\Admin\vendor\sweetalert\dist\sweetalert.css" />
+    <Content Include="Content\Admin\vendor\sweetalert\dist\sweetalert.min.js" />
+    <Content Include="Content\Admin\vendor\weather-icons\css\weather-icons-wind.css" />
+    <Content Include="Content\Admin\vendor\weather-icons\css\weather-icons.css" />
+    <Content Include="Content\Admin\vendor\weather-icons\font\weathericons-regular-webfont.svg" />
+    <Content Include="Content\Admin\vendor\whirl\dist\whirl.css" />
+    <Content Include="Content\Admin\vendor\x-editable\dist\bootstrap3-editable\css\bootstrap-editable.css" />
+    <Content Include="Content\Admin\vendor\x-editable\dist\bootstrap3-editable\img\clear.png" />
+    <Content Include="Content\Admin\vendor\x-editable\dist\bootstrap3-editable\img\loading.gif" />
+    <Content Include="Content\Admin\vendor\x-editable\dist\bootstrap3-editable\js\bootstrap-editable.js" />
+    <Content Include="Content\AdmissionIncharge\css\app-rtl.css" />
+    <Content Include="Content\AdmissionIncharge\css\app.css" />
+    <Content Include="Content\AdmissionIncharge\css\bootstrap-rtl.css" />
+    <Content Include="Content\AdmissionIncharge\css\bootstrap.css" />
+    <Content Include="Content\AdmissionIncharge\css\theme-a.css" />
+    <Content Include="Content\AdmissionIncharge\css\theme-b.css" />
+    <Content Include="Content\AdmissionIncharge\css\theme-c.css" />
+    <Content Include="Content\AdmissionIncharge\css\theme-d.css" />
+    <Content Include="Content\AdmissionIncharge\css\theme-e.css" />
+    <Content Include="Content\AdmissionIncharge\css\theme-f.css" />
+    <Content Include="Content\AdmissionIncharge\css\theme-g.css" />
+    <Content Include="Content\AdmissionIncharge\css\theme-h.css" />
+    <Content Include="Content\AdmissionIncharge\img\bg1.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\bg10.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\bg2.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\bg3.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\bg4.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\bg5.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\bg6.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\bg7.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\bg8.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\bg9.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\dummy.png" />
+    <Content Include="Content\AdmissionIncharge\img\lock-bg.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\logo-single.png" />
+    <Content Include="Content\AdmissionIncharge\img\logo.png" />
+    <Content Include="Content\AdmissionIncharge\img\mb-sample.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\mockup.png" />
+    <Content Include="Content\AdmissionIncharge\img\profile-bg.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\user\01.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\user\02.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\user\03.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\user\04.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\user\05.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\user\06.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\user\07.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\user\08.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\user\09.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\user\10.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\user\11.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\user\12.jpg" />
+    <Content Include="Content\AdmissionIncharge\img\user\13.jpg" />
+    <Content Include="Content\AdmissionIncharge\js\app.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\%40ttskch\select2-bootstrap4-theme\dist\select2-bootstrap4.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\animate.css\animate.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\animo\animo.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-colorpicker\dist\js\bootstrap-colorpicker.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-datepicker\dist\css\bootstrap-datepicker.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-datepicker\dist\js\bootstrap-datepicker.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-filestyle\src\bootstrap-filestyle.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-slider\dist\bootstrap-slider.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-slider\dist\css\bootstrap-slider.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-tagsinput\dist\bootstrap-tagsinput.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-tagsinput\dist\bootstrap-tagsinput.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-wysiwyg\css\style.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap-wysiwyg\js\bootstrap-wysiwyg.min.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap\dist\css\bootstrap.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\bootstrap\dist\js\bootstrap.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\chart.js\dist\Chart.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\chartist\dist\chartist.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\chartist\dist\chartist.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\chosen-js\chosen-sprite%402x.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\chosen-js\chosen-sprite.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\chosen-js\chosen.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\chosen-js\chosen.jquery.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\components-jqueryui\jquery-ui.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\components-jqueryui\themes\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\components-jqueryui\themes\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\components-jqueryui\themes\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\components-jqueryui\themes\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\components-jqueryui\themes\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\components-jqueryui\themes\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\components-jqueryui\themes\smoothness\jquery-ui.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\cropper\dist\cropper.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\cropper\dist\cropper.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\d3\d3.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net-bs4\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net-bs4\js\dataTables.bootstrap4.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net-buttons-bs\css\buttons.bootstrap.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net-buttons-bs\js\buttons.bootstrap.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net-buttons\js\buttons.colVis.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net-buttons\js\buttons.flash.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net-buttons\js\buttons.html5.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net-buttons\js\buttons.print.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net-buttons\js\dataTables.buttons.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net-keytable-bs\css\keyTable.bootstrap.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net-keytable\js\dataTables.keyTable.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net-responsive-bs\css\responsive.bootstrap.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net-responsive-bs\js\responsive.bootstrap.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net-responsive\js\dataTables.responsive.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\datatables.net\js\jquery.dataTables.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\dropzone\dist\basic.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\dropzone\dist\dropzone.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\dropzone\dist\dropzone.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\easy-pie-chart\dist\jquery.easypiechart.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\fastclick\lib\fastclick.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\flatdoc\flatdoc.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\flot\jquery.flot.categories.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\flot\jquery.flot.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\flot\jquery.flot.pie.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\flot\jquery.flot.resize.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\flot\jquery.flot.time.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\AdmissionIncharge\vendor\fullcalendar\dist\fullcalendar.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\fullcalendar\dist\fullcalendar.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\fullcalendar\dist\gcal.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\html5sortable\dist\html.sortable.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\ika.jvectormap\jquery-jvectormap-1.2.2.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\ika.jvectormap\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\ika.jvectormap\jquery-jvectormap-us-mill-en.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\ika.jvectormap\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\inputmask\dist\jquery.inputmask.bundle.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jqcloud2\dist\jqcloud.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\jqcloud2\dist\jqcloud.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery-bootgrid\dist\jquery.bootgrid.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery-bootgrid\dist\jquery.bootgrid.fa.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery-bootgrid\dist\jquery.bootgrid.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery-knob\dist\jquery.knob.min.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery-localize\dist\jquery.localize.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery-slimscroll\jquery.slimscroll.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery-sparkline\jquery.sparkline.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery-steps\build\jquery.steps.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery-validation\dist\additional-methods.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery-validation\dist\jquery.validate.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery.easing\jquery.easing.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery.flot.spline\jquery.flot.spline.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery.flot.tooltip\js\jquery.flot.tooltip.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery.gmap\jquery.gmap.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jqueryui-touch-punch\jquery.ui.touch-punch.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jquery\dist\jquery.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\js-storage\js.storage.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\jszip\dist\jszip.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\loaders.css\loaders.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\matchmedia\index.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\modernizr\modernizr.custom.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\moment\min\moment-with-locales.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\morris.js.so\morris.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\morris.js.so\morris.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\nestable\jquery.nestable.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\parsleyjs\dist\parsley.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\pdfmake\build\pdfmake.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\pdfmake\build\vfs_fonts.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\popper.js\dist\umd\popper.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\raphael\raphael.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\rickshaw\rickshaw.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\rickshaw\rickshaw.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\screenfull\dist\screenfull.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\select2\dist\css\select2.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\select2\dist\js\select2.full.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\simple-line-icons\css\simple-line-icons.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\simple-line-icons\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Content\AdmissionIncharge\vendor\spinkit\css\spinkit.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\sweetalert\dist\sweetalert.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\sweetalert\dist\sweetalert.min.js" />
+    <Content Include="Content\AdmissionIncharge\vendor\weather-icons\css\weather-icons-wind.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\weather-icons\css\weather-icons.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\weather-icons\font\weathericons-regular-webfont.svg" />
+    <Content Include="Content\AdmissionIncharge\vendor\whirl\dist\whirl.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\x-editable\dist\bootstrap3-editable\css\bootstrap-editable.css" />
+    <Content Include="Content\AdmissionIncharge\vendor\x-editable\dist\bootstrap3-editable\img\clear.png" />
+    <Content Include="Content\AdmissionIncharge\vendor\x-editable\dist\bootstrap3-editable\img\loading.gif" />
+    <Content Include="Content\AdmissionIncharge\vendor\x-editable\dist\bootstrap3-editable\js\bootstrap-editable.js" />
+    <Content Include="Content\applicant\css\app-rtl.css" />
+    <Content Include="Content\applicant\css\app.css" />
+    <Content Include="Content\applicant\css\bootstrap-rtl.css" />
+    <Content Include="Content\applicant\css\bootstrap.css" />
+    <Content Include="Content\applicant\css\theme-a.css" />
+    <Content Include="Content\applicant\css\theme-b.css" />
+    <Content Include="Content\applicant\css\theme-c.css" />
+    <Content Include="Content\applicant\css\theme-d.css" />
+    <Content Include="Content\applicant\css\theme-e.css" />
+    <Content Include="Content\applicant\css\theme-f.css" />
+    <Content Include="Content\applicant\css\theme-g.css" />
+    <Content Include="Content\applicant\css\theme-h.css" />
+    <Content Include="Content\applicant\img\bg1.jpg" />
+    <Content Include="Content\applicant\img\bg10.jpg" />
+    <Content Include="Content\applicant\img\bg2.jpg" />
+    <Content Include="Content\applicant\img\bg3.jpg" />
+    <Content Include="Content\applicant\img\bg4.jpg" />
+    <Content Include="Content\applicant\img\bg5.jpg" />
+    <Content Include="Content\applicant\img\bg6.jpg" />
+    <Content Include="Content\applicant\img\bg7.jpg" />
+    <Content Include="Content\applicant\img\bg8.jpg" />
+    <Content Include="Content\applicant\img\bg9.jpg" />
+    <Content Include="Content\applicant\img\dummy.png" />
+    <Content Include="Content\applicant\img\lock-bg.jpg" />
+    <Content Include="Content\applicant\img\logo-single.png" />
+    <Content Include="Content\applicant\img\logo.png" />
+    <Content Include="Content\applicant\img\mb-sample.jpg" />
+    <Content Include="Content\applicant\img\mockup.png" />
+    <Content Include="Content\applicant\img\profile-bg.jpg" />
+    <Content Include="Content\applicant\img\user\01.jpg" />
+    <Content Include="Content\applicant\img\user\02.jpg" />
+    <Content Include="Content\applicant\img\user\03.jpg" />
+    <Content Include="Content\applicant\img\user\04.jpg" />
+    <Content Include="Content\applicant\img\user\05.jpg" />
+    <Content Include="Content\applicant\img\user\06.jpg" />
+    <Content Include="Content\applicant\img\user\07.jpg" />
+    <Content Include="Content\applicant\img\user\08.jpg" />
+    <Content Include="Content\applicant\img\user\09.jpg" />
+    <Content Include="Content\applicant\img\user\10.jpg" />
+    <Content Include="Content\applicant\img\user\11.jpg" />
+    <Content Include="Content\applicant\img\user\12.jpg" />
+    <Content Include="Content\applicant\img\user\13.jpg" />
+    <Content Include="Content\applicant\js\app.js" />
+    <Content Include="Content\applicant\vendor\%40ttskch\select2-bootstrap4-theme\dist\select2-bootstrap4.css" />
+    <Content Include="Content\applicant\vendor\animate.css\animate.css" />
+    <Content Include="Content\applicant\vendor\animo\animo.js" />
+    <Content Include="Content\applicant\vendor\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />
+    <Content Include="Content\applicant\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="Content\applicant\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="Content\applicant\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="Content\applicant\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="Content\applicant\vendor\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="Content\applicant\vendor\bootstrap-colorpicker\dist\js\bootstrap-colorpicker.js" />
+    <Content Include="Content\applicant\vendor\bootstrap-datepicker\dist\css\bootstrap-datepicker.css" />
+    <Content Include="Content\applicant\vendor\bootstrap-datepicker\dist\js\bootstrap-datepicker.js" />
+    <Content Include="Content\applicant\vendor\bootstrap-filestyle\src\bootstrap-filestyle.js" />
+    <Content Include="Content\applicant\vendor\bootstrap-slider\dist\bootstrap-slider.js" />
+    <Content Include="Content\applicant\vendor\bootstrap-slider\dist\css\bootstrap-slider.css" />
+    <Content Include="Content\applicant\vendor\bootstrap-tagsinput\dist\bootstrap-tagsinput.css" />
+    <Content Include="Content\applicant\vendor\bootstrap-tagsinput\dist\bootstrap-tagsinput.js" />
+    <Content Include="Content\applicant\vendor\bootstrap-wysiwyg\css\style.css" />
+    <Content Include="Content\applicant\vendor\bootstrap-wysiwyg\js\bootstrap-wysiwyg.min.js" />
+    <Content Include="Content\applicant\vendor\bootstrap\dist\css\bootstrap.css" />
+    <Content Include="Content\applicant\vendor\bootstrap\dist\js\bootstrap.js" />
+    <Content Include="Content\applicant\vendor\chart.js\dist\Chart.js" />
+    <Content Include="Content\applicant\vendor\chartist\dist\chartist.css" />
+    <Content Include="Content\applicant\vendor\chartist\dist\chartist.js" />
+    <Content Include="Content\applicant\vendor\chosen-js\chosen-sprite%402x.png" />
+    <Content Include="Content\applicant\vendor\chosen-js\chosen-sprite.png" />
+    <Content Include="Content\applicant\vendor\chosen-js\chosen.css" />
+    <Content Include="Content\applicant\vendor\chosen-js\chosen.jquery.js" />
+    <Content Include="Content\applicant\vendor\components-jqueryui\jquery-ui.js" />
+    <Content Include="Content\applicant\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\applicant\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\applicant\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\applicant\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\applicant\vendor\components-jqueryui\themes\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\applicant\vendor\components-jqueryui\themes\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\applicant\vendor\components-jqueryui\themes\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\applicant\vendor\components-jqueryui\themes\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\applicant\vendor\components-jqueryui\themes\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\applicant\vendor\components-jqueryui\themes\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\applicant\vendor\components-jqueryui\themes\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\applicant\vendor\components-jqueryui\themes\smoothness\jquery-ui.css" />
+    <Content Include="Content\applicant\vendor\cropper\dist\cropper.css" />
+    <Content Include="Content\applicant\vendor\cropper\dist\cropper.js" />
+    <Content Include="Content\applicant\vendor\d3\d3.js" />
+    <Content Include="Content\applicant\vendor\datatables.net-bs4\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\applicant\vendor\datatables.net-bs4\js\dataTables.bootstrap4.js" />
+    <Content Include="Content\applicant\vendor\datatables.net-buttons-bs\css\buttons.bootstrap.css" />
+    <Content Include="Content\applicant\vendor\datatables.net-buttons-bs\js\buttons.bootstrap.js" />
+    <Content Include="Content\applicant\vendor\datatables.net-buttons\js\buttons.colVis.js" />
+    <Content Include="Content\applicant\vendor\datatables.net-buttons\js\buttons.flash.js" />
+    <Content Include="Content\applicant\vendor\datatables.net-buttons\js\buttons.html5.js" />
+    <Content Include="Content\applicant\vendor\datatables.net-buttons\js\buttons.print.js" />
+    <Content Include="Content\applicant\vendor\datatables.net-buttons\js\dataTables.buttons.js" />
+    <Content Include="Content\applicant\vendor\datatables.net-keytable-bs\css\keyTable.bootstrap.css" />
+    <Content Include="Content\applicant\vendor\datatables.net-keytable\js\dataTables.keyTable.js" />
+    <Content Include="Content\applicant\vendor\datatables.net-responsive-bs\css\responsive.bootstrap.css" />
+    <Content Include="Content\applicant\vendor\datatables.net-responsive-bs\js\responsive.bootstrap.js" />
+    <Content Include="Content\applicant\vendor\datatables.net-responsive\js\dataTables.responsive.js" />
+    <Content Include="Content\applicant\vendor\datatables.net\js\jquery.dataTables.js" />
+    <Content Include="Content\applicant\vendor\dropzone\dist\basic.css" />
+    <Content Include="Content\applicant\vendor\dropzone\dist\dropzone.css" />
+    <Content Include="Content\applicant\vendor\dropzone\dist\dropzone.js" />
+    <Content Include="Content\applicant\vendor\easy-pie-chart\dist\jquery.easypiechart.js" />
+    <Content Include="Content\applicant\vendor\fastclick\lib\fastclick.js" />
+    <Content Include="Content\applicant\vendor\flatdoc\flatdoc.js" />
+    <Content Include="Content\applicant\vendor\flot\jquery.flot.categories.js" />
+    <Content Include="Content\applicant\vendor\flot\jquery.flot.js" />
+    <Content Include="Content\applicant\vendor\flot\jquery.flot.pie.js" />
+    <Content Include="Content\applicant\vendor\flot\jquery.flot.resize.js" />
+    <Content Include="Content\applicant\vendor\flot\jquery.flot.time.js" />
+    <Content Include="Content\applicant\vendor\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\applicant\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\applicant\vendor\fullcalendar\dist\fullcalendar.css" />
+    <Content Include="Content\applicant\vendor\fullcalendar\dist\fullcalendar.js" />
+    <Content Include="Content\applicant\vendor\fullcalendar\dist\gcal.js" />
+    <Content Include="Content\applicant\vendor\html5sortable\dist\html.sortable.js" />
+    <Content Include="Content\applicant\vendor\ika.jvectormap\jquery-jvectormap-1.2.2.css" />
+    <Content Include="Content\applicant\vendor\ika.jvectormap\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="Content\applicant\vendor\ika.jvectormap\jquery-jvectormap-us-mill-en.js" />
+    <Content Include="Content\applicant\vendor\ika.jvectormap\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Content\applicant\vendor\inputmask\dist\jquery.inputmask.bundle.js" />
+    <Content Include="Content\applicant\vendor\jqcloud2\dist\jqcloud.css" />
+    <Content Include="Content\applicant\vendor\jqcloud2\dist\jqcloud.js" />
+    <Content Include="Content\applicant\vendor\jquery-bootgrid\dist\jquery.bootgrid.css" />
+    <Content Include="Content\applicant\vendor\jquery-bootgrid\dist\jquery.bootgrid.fa.js" />
+    <Content Include="Content\applicant\vendor\jquery-bootgrid\dist\jquery.bootgrid.js" />
+    <Content Include="Content\applicant\vendor\jquery-knob\dist\jquery.knob.min.js" />
+    <Content Include="Content\applicant\vendor\jquery-localize\dist\jquery.localize.js" />
+    <Content Include="Content\applicant\vendor\jquery-slimscroll\jquery.slimscroll.js" />
+    <Content Include="Content\applicant\vendor\jquery-sparkline\jquery.sparkline.js" />
+    <Content Include="Content\applicant\vendor\jquery-steps\build\jquery.steps.js" />
+    <Content Include="Content\applicant\vendor\jquery-validation\dist\additional-methods.js" />
+    <Content Include="Content\applicant\vendor\jquery-validation\dist\jquery.validate.js" />
+    <Content Include="Content\applicant\vendor\jquery.easing\jquery.easing.js" />
+    <Content Include="Content\applicant\vendor\jquery.flot.spline\jquery.flot.spline.js" />
+    <Content Include="Content\applicant\vendor\jquery.flot.tooltip\js\jquery.flot.tooltip.js" />
+    <Content Include="Content\applicant\vendor\jquery.gmap\jquery.gmap.js" />
+    <Content Include="Content\applicant\vendor\jqueryui-touch-punch\jquery.ui.touch-punch.js" />
+    <Content Include="Content\applicant\vendor\jquery\dist\jquery.js" />
+    <Content Include="Content\applicant\vendor\js-storage\js.storage.js" />
+    <Content Include="Content\applicant\vendor\jszip\dist\jszip.js" />
+    <Content Include="Content\applicant\vendor\loaders.css\loaders.css" />
+    <Content Include="Content\applicant\vendor\matchmedia\index.js" />
+    <Content Include="Content\applicant\vendor\modernizr\modernizr.custom.js" />
+    <Content Include="Content\applicant\vendor\moment\min\moment-with-locales.js" />
+    <Content Include="Content\applicant\vendor\morris.js.so\morris.css" />
+    <Content Include="Content\applicant\vendor\morris.js.so\morris.js" />
+    <Content Include="Content\applicant\vendor\nestable\jquery.nestable.js" />
+    <Content Include="Content\applicant\vendor\parsleyjs\dist\parsley.js" />
+    <Content Include="Content\applicant\vendor\pdfmake\build\pdfmake.js" />
+    <Content Include="Content\applicant\vendor\pdfmake\build\vfs_fonts.js" />
+    <Content Include="Content\applicant\vendor\popper.js\dist\umd\popper.js" />
+    <Content Include="Content\applicant\vendor\raphael\raphael.js" />
+    <Content Include="Content\applicant\vendor\rickshaw\rickshaw.css" />
+    <Content Include="Content\applicant\vendor\rickshaw\rickshaw.js" />
+    <Content Include="Content\applicant\vendor\screenfull\dist\screenfull.js" />
+    <Content Include="Content\applicant\vendor\select2\dist\css\select2.css" />
+    <Content Include="Content\applicant\vendor\select2\dist\js\select2.full.js" />
+    <Content Include="Content\applicant\vendor\simple-line-icons\css\simple-line-icons.css" />
+    <Content Include="Content\applicant\vendor\simple-line-icons\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Content\applicant\vendor\spinkit\css\spinkit.css" />
+    <Content Include="Content\applicant\vendor\sweetalert\dist\sweetalert.css" />
+    <Content Include="Content\applicant\vendor\sweetalert\dist\sweetalert.min.js" />
+    <Content Include="Content\applicant\vendor\weather-icons\css\weather-icons-wind.css" />
+    <Content Include="Content\applicant\vendor\weather-icons\css\weather-icons.css" />
+    <Content Include="Content\applicant\vendor\weather-icons\font\weathericons-regular-webfont.svg" />
+    <Content Include="Content\applicant\vendor\whirl\dist\whirl.css" />
+    <Content Include="Content\applicant\vendor\x-editable\dist\bootstrap3-editable\css\bootstrap-editable.css" />
+    <Content Include="Content\applicant\vendor\x-editable\dist\bootstrap3-editable\img\clear.png" />
+    <Content Include="Content\applicant\vendor\x-editable\dist\bootstrap3-editable\img\loading.gif" />
+    <Content Include="Content\applicant\vendor\x-editable\dist\bootstrap3-editable\js\bootstrap-editable.js" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-grid.rtl.css" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Content\bootstrap-utilities.css" />
+    <Content Include="Content\bootstrap-utilities.min.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.rtl.css" />
+    <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Image\iub.jpg" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Models\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.esm.js" />
+    <Content Include="Scripts\bootstrap.esm.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="Content\Admin\assets\font-awesome\fonts\fontawesome-webfontba72.eot" />
+    <Content Include="Content\Admin\assets\font-awesome\fonts\fontawesome-webfontba72.ttf" />
+    <Content Include="Content\Admin\assets\font-awesome\fonts\fontawesome-webfontba72.woff" />
+    <Content Include="Content\Admin\assets\font-awesome\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="Content\Admin\assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\Admin\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\Admin\assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\Admin\assets\fonts\glyphicons-halflings-regulard41d.eot" />
+    <Content Include="Content\applicant\server\datatable.json" />
+    <Content Include="Content\applicant\server\documentation\readme.md" />
+    <Content Include="Content\applicant\server\i18n\site-en.json" />
+    <Content Include="Content\applicant\server\i18n\site-es.json" />
+    <Content Include="Content\applicant\server\xeditable-groups.json" />
+    <Content Include="Content\applicant\vendor\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\applicant\vendor\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\applicant\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\applicant\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\applicant\vendor\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\applicant\vendor\simple-line-icons\fonts\Simple-Line-Icons.eot" />
+    <Content Include="Content\applicant\vendor\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Content\applicant\vendor\simple-line-icons\fonts\Simple-Line-Icons.woff" />
+    <Content Include="Content\applicant\vendor\simple-line-icons\fonts\Simple-Line-Icons.woff2" />
+    <Content Include="Content\applicant\vendor\weather-icons\font\weathericons-regular-webfont.eot" />
+    <Content Include="Content\applicant\vendor\weather-icons\font\weathericons-regular-webfont.ttf" />
+    <Content Include="Content\applicant\vendor\weather-icons\font\weathericons-regular-webfont.woff" />
+    <Content Include="Content\applicant\vendor\weather-icons\font\weathericons-regular-webfont.woff2" />
+    <Content Include="Content\AdmissionIncharge\server\datatable.json" />
+    <Content Include="Content\AdmissionIncharge\server\documentation\readme.md" />
+    <Content Include="Content\AdmissionIncharge\server\i18n\site-en.json" />
+    <Content Include="Content\AdmissionIncharge\server\i18n\site-es.json" />
+    <Content Include="Content\AdmissionIncharge\server\xeditable-groups.json" />
+    <Content Include="Content\AdmissionIncharge\vendor\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\AdmissionIncharge\vendor\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\AdmissionIncharge\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\AdmissionIncharge\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\AdmissionIncharge\vendor\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\AdmissionIncharge\vendor\simple-line-icons\fonts\Simple-Line-Icons.eot" />
+    <Content Include="Content\AdmissionIncharge\vendor\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Content\AdmissionIncharge\vendor\simple-line-icons\fonts\Simple-Line-Icons.woff" />
+    <Content Include="Content\AdmissionIncharge\vendor\simple-line-icons\fonts\Simple-Line-Icons.woff2" />
+    <Content Include="Content\AdmissionIncharge\vendor\weather-icons\font\weathericons-regular-webfont.eot" />
+    <Content Include="Content\AdmissionIncharge\vendor\weather-icons\font\weathericons-regular-webfont.ttf" />
+    <Content Include="Content\AdmissionIncharge\vendor\weather-icons\font\weathericons-regular-webfont.woff" />
+    <Content Include="Content\AdmissionIncharge\vendor\weather-icons\font\weathericons-regular-webfont.woff2" />
+    <Content Include="Content\Admin\_AdminLayout.cshtml" />
+    <Content Include="Content\Admin\vendor\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\Admin\vendor\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\Admin\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\Admin\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\Admin\vendor\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\Admin\vendor\simple-line-icons\fonts\Simple-Line-Icons.eot" />
+    <Content Include="Content\Admin\vendor\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Content\Admin\vendor\simple-line-icons\fonts\Simple-Line-Icons.woff" />
+    <Content Include="Content\Admin\vendor\simple-line-icons\fonts\Simple-Line-Icons.woff2" />
+    <Content Include="Content\Admin\vendor\weather-icons\font\weathericons-regular-webfont.eot" />
+    <Content Include="Content\Admin\vendor\weather-icons\font\weathericons-regular-webfont.ttf" />
+    <Content Include="Content\Admin\vendor\weather-icons\font\weathericons-regular-webfont.woff" />
+    <Content Include="Content\Admin\vendor\weather-icons\font\weathericons-regular-webfont.woff2" />
+    <Content Include="Content\Admin\server\datatable.json" />
+    <Content Include="Content\Admin\server\documentation\readme.md" />
+    <Content Include="Content\Admin\server\i18n\site-en.json" />
+    <Content Include="Content\Admin\server\i18n\site-es.json" />
+    <Content Include="Content\Admin\server\xeditable-groups.json" />
+    <None Include="Scripts\jquery-3.7.0.intellisense.js" />
+    <Content Include="Scripts\jquery-3.7.0.js" />
+    <Content Include="Scripts\jquery-3.7.0.min.js" />
+    <Content Include="Scripts\jquery-3.7.0.slim.js" />
+    <Content Include="Scripts\jquery-3.7.0.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\HomePage.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Applicant\Dashboard.cshtml" />
+    <Content Include="Views\Shared\_ApplicantLayout.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Admin\Register.cshtml" />
+    <Content Include="Views\Admin\Dashboard.cshtml" />
+    <Content Include="Views\Incharge\Register.cshtml" />
+    <Content Include="Views\Incharge\Dashboard.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Incharge\CreateMeritList.cshtml" />
+    <Content Include="Views\Incharge\ViewMeritLists.cshtml" />
+    <Content Include="Views\Applicant\ViewMeritLists.cshtml" />
+    <Content Include="Views\Incharge\PrintMeritList.cshtml" />
+    <Content Include="Views\Shared\_AdmissionInchargeLayout.cshtml" />
+    <Content Include="Views\Admin\ManageDepartments.cshtml" />
+    <Content Include="Views\Admin\ManagePrograms.cshtml" />
+    <Content Include="Views\Admin\ManageUsers.cshtml" />
+    <Content Include="Views\Shared\_InchargeLayout.cshtml" />
+    <Content Include="Views\Incharge\ViewApplications.cshtml" />
+    <Content Include="Views\Incharge\DownloadMeritList.cshtml" />
+    <Content Include="Views\Incharge\DeleteMeritList.cshtml" />
+    <Content Include="Views\Applicant\Apply.cshtml" />
+    <Content Include="Views\Applicant\EditApplication.cshtml" />
+    <Content Include="Views\Admin\EditDepartment.cshtml" />
+    <Content Include="Views\Admin\EditProgram.cshtml" />
+    <Content Include="Views\Applicant\MakePayment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\bootstrap.rtl.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Content\bootstrap-utilities.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\bootstrap.esm.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\jquery-3.7.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.7.0.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53657</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44394/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

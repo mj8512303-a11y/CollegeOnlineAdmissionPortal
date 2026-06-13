@@ -1,0 +1,225 @@
+﻿@*@model IEnumerable<CollegeOnlineAdmissionPortal.Models.ApplicationForm>
+    @{
+        Layout = "~/Views/Shared/_InchargeLayout.cshtml";
+    }
+    <h3>All Applications</h3>
+    <table class="table table-bordered mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Form ID</th>
+                <th>Applicant</th>
+                <th>Program</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FormID</td>
+                    <td>@item.ProgramAppliedFor</td>
+                    <td>@item.Status</td>
+
+                    <td>
+                        <form method="post" action="@Url.Action("ApproveApplication","Incharge")" style="display:inline">
+                            <input type="hidden" name="id" value="@item.FormID" />
+                            <button class="btn btn-success btn-sm approve-btn" data-id="@item.FormID">
+                                Approve
+                            </button>
+                        </form>
+
+                        <form method="post" action="@Url.Action("RejectApplication","Incharge")" style="display:inline">
+                            <input type="hidden" name="id" value="@item.FormID" />
+                            <button class="btn btn-danger btn-sm reject-btn" data-id="@item.FormID">
+                                Reject
+                            </button>
+                            <span id="status-@item.FormID">@item.Status</span>
+                        </form>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+    <script>
+    $(document).ready(function () {
+
+        $(".approve-btn").click(function () {
+            var id = $(this).data("id");
+
+            $.post("/Incharge/ApproveApplicationAjax", { id: id }, function (res) {
+                if (res.success) {
+                    $("#status-" + id).text(res.status);
+                }
+            });
+        });
+
+        $(".reject-btn").click(function () {
+            var id = $(this).data("id");
+
+            $.post("/Incharge/RejectApplicationAjax", { id: id }, function (res) {
+                if (res.success) {
+                    $("#status-" + id).text(res.status);
+                }
+            });
+        });
+
+    });
+    </script>*@
+
+
+@model IEnumerable<CollegeOnlineAdmissionPortal.Models.ApplicationForm>
+
+@{
+    ViewBag.Title = "Manage Applications";
+
+    var total = Model.Count();
+    var approved = Model.Count(x => x.Status == "Approved");
+    var rejected = Model.Count(x => x.Status == "Rejected");
+    var pending = Model.Count(x => x.Status == "Pending");
+}
+
+<div class="container-fluid mt-4">
+
+    <!-- ================= STAT CARDS ================= -->
+    <div class="row mb-4">
+        <div class="col-md-3 col-sm-6 mb-3">
+            <div class="card shadow border-0 text-white bg-primary text-center">
+                <div class="card-body">
+                    <h5>Total Applications</h5>
+                    <h3>@total</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-3">
+            <div class="card shadow border-0 text-white bg-success text-center">
+                <div class="card-body">
+                    <h5>Approved</h5>
+                    <h3>@approved</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-3">
+            <div class="card shadow border-0 text-white bg-danger text-center">
+                <div class="card-body">
+                    <h5>Rejected</h5>
+                    <h3>@rejected</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-3">
+            <div class="card shadow border-0 text-dark bg-warning text-center">
+                <div class="card-body">
+                    <h5>Pending</h5>
+                    <h3>@pending</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= APPLICATION TABLE ================= -->
+    <div class="card shadow">
+        <div class="card-header bg-success text-green d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Manage Applications</h4>
+
+            <a href="@Url.Action("Dashboard", "Incharge")"
+               class="btn btn-outline-dark btn-sm">
+                <i class="bi bi-arrow-left-circle me-1"></i>
+                ⬅ Back to Dashboard
+            </a>
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover text-center align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Applicant</th>
+                            <th>Program</th>
+                            <th>Year</th>
+                            <th>Marks</th>
+                            <th>Status</th>
+                            <th width="180">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int count = 1;
+                        }
+
+                        @foreach (var item in Model)
+                        {
+                            <tr id="row-@item.FormID">
+                                <td>@count</td>
+                                <td>@item.Applicant.FullName</td>
+                                <td>@item.ProgramAppliedFor</td>
+                                <td>@item.AcademicYear</td>
+                                <td>@item.TotalMarks</td>
+
+                                <td>
+                                    <span id="status-@item.FormID"
+                                          class="badge @(item.Status == "Approved" ? "bg-success" :
+                                                        item.Status == "Rejected" ? "bg-danger" :
+                                                        "bg-warning text-dark")">
+                                        @item.Status
+                                    </span>
+                                </td>
+
+                                <td>
+                                    @if (item.Status == "Pending")
+                                    {
+                                        <button class="btn btn-sm btn-success me-1"
+                                                onclick="approveApplication(@item.FormID)">
+                                            Approve
+                                        </button>
+
+                                        <button class="btn btn-sm btn-danger"
+                                                onclick="rejectApplication(@item.FormID)">
+                                            Reject
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">No Action</span>
+                                    }
+                                </td>
+                            </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+    function approveApplication(id) {
+        if (!confirm("Approve this application?")) return;
+
+        $.post('@Url.Action("ApproveApplicationAjax", "Incharge")',
+            { id: id }, function (res) {
+                if (res.success) location.reload();
+                else alert("Error occurred");
+            });
+    }
+
+    function rejectApplication(id) {
+        if (!confirm("Reject this application?")) return;
+
+        $.post('@Url.Action("RejectApplicationAjax", "Incharge")',
+            { id: id }, function (res) {
+                if (res.success) location.reload();
+                else alert("Error occurred");
+            });
+    }
+    </script>
+}

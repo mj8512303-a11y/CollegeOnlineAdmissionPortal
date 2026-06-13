@@ -1,0 +1,863 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CollegeOnlineAdmissionPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AcademicDetails">
+          <Key>
+            <PropertyRef Name="AcademicID" />
+          </Key>
+          <Property Name="AcademicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicantID" Type="int" Nullable="false" />
+          <Property Name="Qualification" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="BoardOrUniversity" Type="nvarchar" MaxLength="100" />
+          <Property Name="PassingYear" Type="nvarchar" MaxLength="10" />
+          <Property Name="PercentageOrGPA" Type="nvarchar" MaxLength="20" />
+          <Property Name="UploadMarksheet" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdmissionIncharge">
+          <Key>
+            <PropertyRef Name="InchargeID" />
+          </Key>
+          <Property Name="InchargeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="Department" Type="nvarchar" MaxLength="100" />
+          <Property Name="AssignedByAdminID" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Applicant">
+          <Key>
+            <PropertyRef Name="ApplicantID" />
+          </Key>
+          <Property Name="ApplicantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="State" Type="nvarchar" MaxLength="100" />
+          <Property Name="Country" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProfilePicture" Type="nvarchar" MaxLength="255" />
+          <Property Name="RegistrationDate" Type="datetime" />
+          <Property Name="AdmissionStatus" Type="nvarchar" MaxLength="20" />
+          <Property Name="MeritRank" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ApplicationForm">
+          <Key>
+            <PropertyRef Name="FormID" />
+          </Key>
+          <Property Name="FormID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicantID" Type="int" Nullable="false" />
+          <Property Name="InchargeID" Type="int" />
+          <Property Name="ProgramAppliedFor" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AcademicYear" Type="nvarchar" MaxLength="20" />
+          <Property Name="SubmissionDate" Type="datetime" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="TotalMarks" Type="int" />
+          <Property Name="MeritRank" Type="int" />
+          <Property Name="ProgramID" Type="int" Nullable="false" />
+          <Property Name="MeritListID" Type="int" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DepartmentCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Documents">
+          <Key>
+            <PropertyRef Name="DocumentID" />
+          </Key>
+          <Property Name="DocumentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicantID" Type="int" Nullable="false" />
+          <Property Name="ProgramID" Type="int" />
+          <Property Name="DocumentType" Type="nvarchar" MaxLength="100" />
+          <Property Name="DocumentPath" Type="nvarchar" MaxLength="255" />
+          <Property Name="UploadDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MeritList">
+          <Key>
+            <PropertyRef Name="MeritListID" />
+          </Key>
+          <Property Name="MeritListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedByInchargeID" Type="int" />
+          <Property Name="Course" Type="nvarchar" MaxLength="100" />
+          <Property Name="AcademicYear" Type="nvarchar" MaxLength="20" />
+          <Property Name="PublishedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicantID" Type="int" Nullable="false" />
+          <Property Name="AmountPaid" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="PaymentDate" Type="datetime" />
+          <Property Name="PaymentMethod" Type="nvarchar" MaxLength="50" />
+          <Property Name="PaymentStatus" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Program">
+          <Key>
+            <PropertyRef Name="ProgramID" />
+          </Key>
+          <Property Name="ProgramID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProgramName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProgramLevel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Duration" Type="nvarchar" MaxLength="50" />
+          <Property Name="DepartmentID" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserType" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__AcademicD__Appli__4F7CD00D">
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="1" />
+          <End Role="AcademicDetails" Type="Self.AcademicDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicant">
+              <PropertyRef Name="ApplicantID" />
+            </Principal>
+            <Dependent Role="AcademicDetails">
+              <PropertyRef Name="ApplicantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Admission__Assig__46E78A0C">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="AdmissionIncharge" Type="Self.AdmissionIncharge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="AdmissionIncharge">
+              <PropertyRef Name="AssignedByAdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__Appli__49C3F6B7">
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="1" />
+          <End Role="ApplicationForm" Type="Self.ApplicationForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicant">
+              <PropertyRef Name="ApplicantID" />
+            </Principal>
+            <Dependent Role="ApplicationForm">
+              <PropertyRef Name="ApplicantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__Incha__4AB81AF0">
+          <End Role="AdmissionIncharge" Type="Self.AdmissionIncharge" Multiplicity="0..1" />
+          <End Role="ApplicationForm" Type="Self.ApplicationForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdmissionIncharge">
+              <PropertyRef Name="InchargeID" />
+            </Principal>
+            <Dependent Role="ApplicationForm">
+              <PropertyRef Name="InchargeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Documents__Appli__52593CB8">
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="1" />
+          <End Role="Documents" Type="Self.Documents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicant">
+              <PropertyRef Name="ApplicantID" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="ApplicantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Documents__Progr__534D60F1">
+          <End Role="Program" Type="Self.Program" Multiplicity="0..1" />
+          <End Role="Documents" Type="Self.Documents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="ProgramID" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="ProgramID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MeritList__Creat__5BE2A6F2">
+          <End Role="AdmissionIncharge" Type="Self.AdmissionIncharge" Multiplicity="0..1" />
+          <End Role="MeritList" Type="Self.MeritList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdmissionIncharge">
+              <PropertyRef Name="InchargeID" />
+            </Principal>
+            <Dependent Role="MeritList">
+              <PropertyRef Name="CreatedByInchargeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__Applica__571DF1D5">
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicant">
+              <PropertyRef Name="ApplicantID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ApplicantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Program__Departm__3E52440B">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Program" Type="Self.Program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Program">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicationForm_MeritList">
+          <End Role="MeritList" Type="Self.MeritList" Multiplicity="0..1" />
+          <End Role="ApplicationForm" Type="Self.ApplicationForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MeritList">
+              <PropertyRef Name="MeritListID" />
+            </Principal>
+            <Dependent Role="ApplicationForm">
+              <PropertyRef Name="MeritListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicationForm_Program">
+          <End Role="Program" Type="Self.Program" Multiplicity="1" />
+          <End Role="ApplicationForm" Type="Self.ApplicationForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="ProgramID" />
+            </Principal>
+            <Dependent Role="ApplicationForm">
+              <PropertyRef Name="ProgramID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CollegeOnlineAdmissionPortalModelStoreContainer">
+          <EntitySet Name="AcademicDetails" EntityType="Self.AcademicDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdmissionIncharge" EntityType="Self.AdmissionIncharge" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Applicant" EntityType="Self.Applicant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApplicationForm" EntityType="Self.ApplicationForm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MeritList" EntityType="Self.MeritList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Program" EntityType="Self.Program" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AcademicD__Appli__4F7CD00D" Association="Self.FK__AcademicD__Appli__4F7CD00D">
+            <End Role="Applicant" EntitySet="Applicant" />
+            <End Role="AcademicDetails" EntitySet="AcademicDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Admission__Assig__46E78A0C" Association="Self.FK__Admission__Assig__46E78A0C">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="AdmissionIncharge" EntitySet="AdmissionIncharge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__Appli__49C3F6B7" Association="Self.FK__Applicati__Appli__49C3F6B7">
+            <End Role="Applicant" EntitySet="Applicant" />
+            <End Role="ApplicationForm" EntitySet="ApplicationForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__Incha__4AB81AF0" Association="Self.FK__Applicati__Incha__4AB81AF0">
+            <End Role="AdmissionIncharge" EntitySet="AdmissionIncharge" />
+            <End Role="ApplicationForm" EntitySet="ApplicationForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Documents__Appli__52593CB8" Association="Self.FK__Documents__Appli__52593CB8">
+            <End Role="Applicant" EntitySet="Applicant" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Documents__Progr__534D60F1" Association="Self.FK__Documents__Progr__534D60F1">
+            <End Role="Program" EntitySet="Program" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MeritList__Creat__5BE2A6F2" Association="Self.FK__MeritList__Creat__5BE2A6F2">
+            <End Role="AdmissionIncharge" EntitySet="AdmissionIncharge" />
+            <End Role="MeritList" EntitySet="MeritList" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__Applica__571DF1D5" Association="Self.FK__Payment__Applica__571DF1D5">
+            <End Role="Applicant" EntitySet="Applicant" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Program__Departm__3E52440B" Association="Self.FK__Program__Departm__3E52440B">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Program" EntitySet="Program" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicationForm_MeritList" Association="Self.FK_ApplicationForm_MeritList">
+            <End Role="MeritList" EntitySet="MeritList" />
+            <End Role="ApplicationForm" EntitySet="ApplicationForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicationForm_Program" Association="Self.FK_ApplicationForm_Program">
+            <End Role="Program" EntitySet="Program" />
+            <End Role="ApplicationForm" EntitySet="ApplicationForm" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CollegeOnlineAdmissionPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AcademicDetail">
+          <Key>
+            <PropertyRef Name="AcademicID" />
+          </Key>
+          <Property Name="AcademicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicantID" Type="Int32" Nullable="false" />
+          <Property Name="Qualification" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BoardOrUniversity" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PassingYear" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PercentageOrGPA" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UploadMarksheet" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Applicant" Relationship="Self.FK__AcademicD__Appli__4F7CD00D" FromRole="AcademicDetails" ToRole="Applicant" />
+        </EntityType>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AdmissionIncharges" Relationship="Self.FK__Admission__Assig__46E78A0C" FromRole="Admin" ToRole="AdmissionIncharge" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdmissionIncharge">
+          <Key>
+            <PropertyRef Name="InchargeID" />
+          </Key>
+          <Property Name="InchargeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AssignedByAdminID" Type="Int32" />
+          <NavigationProperty Name="Admin" Relationship="Self.FK__Admission__Assig__46E78A0C" FromRole="AdmissionIncharge" ToRole="Admin" />
+          <NavigationProperty Name="ApplicationForms" Relationship="Self.FK__Applicati__Incha__4AB81AF0" FromRole="AdmissionIncharge" ToRole="ApplicationForm" />
+          <NavigationProperty Name="MeritLists" Relationship="Self.FK__MeritList__Creat__5BE2A6F2" FromRole="AdmissionIncharge" ToRole="MeritList" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Applicant">
+          <Key>
+            <PropertyRef Name="ApplicantID" />
+          </Key>
+          <Property Name="ApplicantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
+          <Property Name="AdmissionStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MeritRank" Type="Int32" />
+          <NavigationProperty Name="AcademicDetails" Relationship="Self.FK__AcademicD__Appli__4F7CD00D" FromRole="Applicant" ToRole="AcademicDetails" />
+          <NavigationProperty Name="ApplicationForms" Relationship="Self.FK__Applicati__Appli__49C3F6B7" FromRole="Applicant" ToRole="ApplicationForm" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK__Documents__Appli__52593CB8" FromRole="Applicant" ToRole="Documents" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__Applica__571DF1D5" FromRole="Applicant" ToRole="Payment" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ApplicationForm">
+          <Key>
+            <PropertyRef Name="FormID" />
+          </Key>
+          <Property Name="FormID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicantID" Type="Int32" Nullable="false" />
+          <Property Name="InchargeID" Type="Int32" />
+          <Property Name="ProgramAppliedFor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AcademicYear" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SubmissionDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdmissionIncharge" Relationship="Self.FK__Applicati__Incha__4AB81AF0" FromRole="ApplicationForm" ToRole="AdmissionIncharge" />
+          <NavigationProperty Name="Applicant" Relationship="Self.FK__Applicati__Appli__49C3F6B7" FromRole="ApplicationForm" ToRole="Applicant" />
+          <Property Name="TotalMarks" Type="Int32" />
+          <Property Name="MeritRank" Type="Int32" />
+          <Property Name="ProgramID" Type="Int32" Nullable="false" />
+          <Property Name="MeritListID" Type="Int32" />
+          <NavigationProperty Name="MeritList" Relationship="CollegeOnlineAdmissionPortalModel.FK_ApplicationForm_MeritList" FromRole="ApplicationForm" ToRole="MeritList" />
+          <NavigationProperty Name="Program" Relationship="CollegeOnlineAdmissionPortalModel.FK_ApplicationForm_Program" FromRole="ApplicationForm" ToRole="Program" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DepartmentCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Programs" Relationship="Self.FK__Program__Departm__3E52440B" FromRole="Department" ToRole="Program" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="DocumentID" />
+          </Key>
+          <Property Name="DocumentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicantID" Type="Int32" Nullable="false" />
+          <Property Name="ProgramID" Type="Int32" />
+          <Property Name="DocumentType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentPath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Applicant" Relationship="Self.FK__Documents__Appli__52593CB8" FromRole="Documents" ToRole="Applicant" />
+          <NavigationProperty Name="Program" Relationship="Self.FK__Documents__Progr__534D60F1" FromRole="Documents" ToRole="Program" />
+        </EntityType>
+        <EntityType Name="MeritList">
+          <Key>
+            <PropertyRef Name="MeritListID" />
+          </Key>
+          <Property Name="MeritListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedByInchargeID" Type="Int32" />
+          <Property Name="Course" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AcademicYear" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PublishedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AdmissionIncharge" Relationship="Self.FK__MeritList__Creat__5BE2A6F2" FromRole="MeritList" ToRole="AdmissionIncharge" />
+          <NavigationProperty Name="ApplicationForms" Relationship="CollegeOnlineAdmissionPortalModel.FK_ApplicationForm_MeritList" FromRole="MeritList" ToRole="ApplicationForm" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicantID" Type="Int32" Nullable="false" />
+          <Property Name="AmountPaid" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+          <Property Name="PaymentMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Applicant" Relationship="Self.FK__Payment__Applica__571DF1D5" FromRole="Payment" ToRole="Applicant" />
+        </EntityType>
+        <EntityType Name="Program">
+          <Key>
+            <PropertyRef Name="ProgramID" />
+          </Key>
+          <Property Name="ProgramID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProgramName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProgramLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Duration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentID" Type="Int32" />
+          <NavigationProperty Name="Department" Relationship="Self.FK__Program__Departm__3E52440B" FromRole="Program" ToRole="Department" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK__Documents__Progr__534D60F1" FromRole="Program" ToRole="Documents" />
+          <NavigationProperty Name="ApplicationForms" Relationship="CollegeOnlineAdmissionPortalModel.FK_ApplicationForm_Program" FromRole="Program" ToRole="ApplicationForm" />
+        </EntityType>
+        <Association Name="FK__AcademicD__Appli__4F7CD00D">
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="1" />
+          <End Role="AcademicDetails" Type="Self.AcademicDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicant">
+              <PropertyRef Name="ApplicantID" />
+            </Principal>
+            <Dependent Role="AcademicDetails">
+              <PropertyRef Name="ApplicantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Admission__Assig__46E78A0C">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="AdmissionIncharge" Type="Self.AdmissionIncharge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminID" />
+            </Principal>
+            <Dependent Role="AdmissionIncharge">
+              <PropertyRef Name="AssignedByAdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__Incha__4AB81AF0">
+          <End Role="AdmissionIncharge" Type="Self.AdmissionIncharge" Multiplicity="0..1" />
+          <End Role="ApplicationForm" Type="Self.ApplicationForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdmissionIncharge">
+              <PropertyRef Name="InchargeID" />
+            </Principal>
+            <Dependent Role="ApplicationForm">
+              <PropertyRef Name="InchargeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MeritList__Creat__5BE2A6F2">
+          <End Role="AdmissionIncharge" Type="Self.AdmissionIncharge" Multiplicity="0..1" />
+          <End Role="MeritList" Type="Self.MeritList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdmissionIncharge">
+              <PropertyRef Name="InchargeID" />
+            </Principal>
+            <Dependent Role="MeritList">
+              <PropertyRef Name="CreatedByInchargeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Applicati__Appli__49C3F6B7">
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="1" />
+          <End Role="ApplicationForm" Type="Self.ApplicationForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicant">
+              <PropertyRef Name="ApplicantID" />
+            </Principal>
+            <Dependent Role="ApplicationForm">
+              <PropertyRef Name="ApplicantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Documents__Appli__52593CB8">
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="1" />
+          <End Role="Documents" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicant">
+              <PropertyRef Name="ApplicantID" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="ApplicantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payment__Applica__571DF1D5">
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicant">
+              <PropertyRef Name="ApplicantID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="ApplicantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Program__Departm__3E52440B">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Program" Type="Self.Program" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Program">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Documents__Progr__534D60F1">
+          <End Role="Program" Type="Self.Program" Multiplicity="0..1" />
+          <End Role="Documents" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="ProgramID" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="ProgramID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CollegeOnlineAdmissionPortalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AcademicDetails" EntityType="Self.AcademicDetail" />
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="AdmissionIncharges" EntityType="Self.AdmissionIncharge" />
+          <EntitySet Name="Applicants" EntityType="Self.Applicant" />
+          <EntitySet Name="ApplicationForms" EntityType="Self.ApplicationForm" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Documents" EntityType="Self.Document" />
+          <EntitySet Name="MeritLists" EntityType="Self.MeritList" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="Programs" EntityType="Self.Program" />
+          <AssociationSet Name="FK__AcademicD__Appli__4F7CD00D" Association="Self.FK__AcademicD__Appli__4F7CD00D">
+            <End Role="Applicant" EntitySet="Applicants" />
+            <End Role="AcademicDetails" EntitySet="AcademicDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Admission__Assig__46E78A0C" Association="Self.FK__Admission__Assig__46E78A0C">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="AdmissionIncharge" EntitySet="AdmissionIncharges" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__Incha__4AB81AF0" Association="Self.FK__Applicati__Incha__4AB81AF0">
+            <End Role="AdmissionIncharge" EntitySet="AdmissionIncharges" />
+            <End Role="ApplicationForm" EntitySet="ApplicationForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MeritList__Creat__5BE2A6F2" Association="Self.FK__MeritList__Creat__5BE2A6F2">
+            <End Role="AdmissionIncharge" EntitySet="AdmissionIncharges" />
+            <End Role="MeritList" EntitySet="MeritLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Applicati__Appli__49C3F6B7" Association="Self.FK__Applicati__Appli__49C3F6B7">
+            <End Role="Applicant" EntitySet="Applicants" />
+            <End Role="ApplicationForm" EntitySet="ApplicationForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Documents__Appli__52593CB8" Association="Self.FK__Documents__Appli__52593CB8">
+            <End Role="Applicant" EntitySet="Applicants" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payment__Applica__571DF1D5" Association="Self.FK__Payment__Applica__571DF1D5">
+            <End Role="Applicant" EntitySet="Applicants" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Program__Departm__3E52440B" Association="Self.FK__Program__Departm__3E52440B">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Program" EntitySet="Programs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Documents__Progr__534D60F1" Association="Self.FK__Documents__Progr__534D60F1">
+            <End Role="Program" EntitySet="Programs" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="CollegeOnlineAdmissionPortalModel.User" />
+          <AssociationSet Name="FK_ApplicationForm_MeritList" Association="CollegeOnlineAdmissionPortalModel.FK_ApplicationForm_MeritList">
+            <End Role="MeritList" EntitySet="MeritLists" />
+            <End Role="ApplicationForm" EntitySet="ApplicationForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ApplicationForm_Program" Association="CollegeOnlineAdmissionPortalModel.FK_ApplicationForm_Program">
+            <End Role="Program" EntitySet="Programs" />
+            <End Role="ApplicationForm" EntitySet="ApplicationForms" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_ApplicationForm_MeritList">
+          <End Type="CollegeOnlineAdmissionPortalModel.MeritList" Role="MeritList" Multiplicity="0..1" />
+          <End Type="CollegeOnlineAdmissionPortalModel.ApplicationForm" Role="ApplicationForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MeritList">
+              <PropertyRef Name="MeritListID" />
+            </Principal>
+            <Dependent Role="ApplicationForm">
+              <PropertyRef Name="MeritListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApplicationForm_Program">
+          <End Type="CollegeOnlineAdmissionPortalModel.Program" Role="Program" Multiplicity="1" />
+          <End Type="CollegeOnlineAdmissionPortalModel.ApplicationForm" Role="ApplicationForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="ProgramID" />
+            </Principal>
+            <Dependent Role="ApplicationForm">
+              <PropertyRef Name="ProgramID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CollegeOnlineAdmissionPortalModelStoreContainer" CdmEntityContainer="CollegeOnlineAdmissionPortalEntities">
+          <EntitySetMapping Name="AcademicDetails">
+            <EntityTypeMapping TypeName="CollegeOnlineAdmissionPortalModel.AcademicDetail">
+              <MappingFragment StoreEntitySet="AcademicDetails">
+                <ScalarProperty Name="AcademicID" ColumnName="AcademicID" />
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="BoardOrUniversity" ColumnName="BoardOrUniversity" />
+                <ScalarProperty Name="PassingYear" ColumnName="PassingYear" />
+                <ScalarProperty Name="PercentageOrGPA" ColumnName="PercentageOrGPA" />
+                <ScalarProperty Name="UploadMarksheet" ColumnName="UploadMarksheet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="CollegeOnlineAdmissionPortalModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdmissionIncharges">
+            <EntityTypeMapping TypeName="CollegeOnlineAdmissionPortalModel.AdmissionIncharge">
+              <MappingFragment StoreEntitySet="AdmissionIncharge">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="InchargeID" ColumnName="InchargeID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="AssignedByAdminID" ColumnName="AssignedByAdminID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Applicants">
+            <EntityTypeMapping TypeName="CollegeOnlineAdmissionPortalModel.Applicant">
+              <MappingFragment StoreEntitySet="Applicant">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="AdmissionStatus" ColumnName="AdmissionStatus" />
+                <ScalarProperty Name="MeritRank" ColumnName="MeritRank" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApplicationForms">
+            <EntityTypeMapping TypeName="CollegeOnlineAdmissionPortalModel.ApplicationForm">
+              <MappingFragment StoreEntitySet="ApplicationForm">
+                <ScalarProperty Name="MeritListID" ColumnName="MeritListID" />
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+                <ScalarProperty Name="MeritRank" ColumnName="MeritRank" />
+                <ScalarProperty Name="TotalMarks" ColumnName="TotalMarks" />
+                <ScalarProperty Name="FormID" ColumnName="FormID" />
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+                <ScalarProperty Name="InchargeID" ColumnName="InchargeID" />
+                <ScalarProperty Name="ProgramAppliedFor" ColumnName="ProgramAppliedFor" />
+                <ScalarProperty Name="AcademicYear" ColumnName="AcademicYear" />
+                <ScalarProperty Name="SubmissionDate" ColumnName="SubmissionDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="CollegeOnlineAdmissionPortalModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="CollegeOnlineAdmissionPortalModel.Document">
+              <MappingFragment StoreEntitySet="Documents">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+                <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+                <ScalarProperty Name="DocumentPath" ColumnName="DocumentPath" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MeritLists">
+            <EntityTypeMapping TypeName="CollegeOnlineAdmissionPortalModel.MeritList">
+              <MappingFragment StoreEntitySet="MeritList">
+                <ScalarProperty Name="MeritListID" ColumnName="MeritListID" />
+                <ScalarProperty Name="CreatedByInchargeID" ColumnName="CreatedByInchargeID" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="AcademicYear" ColumnName="AcademicYear" />
+                <ScalarProperty Name="PublishedDate" ColumnName="PublishedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="CollegeOnlineAdmissionPortalModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programs">
+            <EntityTypeMapping TypeName="CollegeOnlineAdmissionPortalModel.Program">
+              <MappingFragment StoreEntitySet="Program">
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
+                <ScalarProperty Name="ProgramName" ColumnName="ProgramName" />
+                <ScalarProperty Name="ProgramLevel" ColumnName="ProgramLevel" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CollegeOnlineAdmissionPortalModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

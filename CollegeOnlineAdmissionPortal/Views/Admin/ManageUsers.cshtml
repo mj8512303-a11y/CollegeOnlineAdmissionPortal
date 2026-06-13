@@ -1,0 +1,111 @@
+﻿
+@model IEnumerable<CollegeOnlineAdmissionPortal.Models.Applicant>
+@{
+    ViewBag.Title = "Manage Users";
+    var incharges = ViewBag.Incharges as List<CollegeOnlineAdmissionPortal.Models.AdmissionIncharge>;
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Manage Users</h2>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <h4 class="mt-4 text-primary">Applicants</h4>
+    <table class="table table-bordered table-hover mt-2">
+        <thead class="table-light">
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <td>@a.ApplicantID</td>
+                    <td>@a.FullName</td>
+                    <td>@a.Email</td>
+                    <td>@a.PhoneNumber</td>
+                    <td>
+                        @if (a.IsActive)
+                        {
+                            <span class="badge bg-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Inactive</span>
+                        }
+                    </td>
+                    <td>
+                        <a href="@Url.Action("ToggleApplicantStatus", "Admin", new { id = a.ApplicantID })"
+                           class="btn btn-sm @(a.IsActive ? "btn-warning" : "btn-success")">
+                            @(a.IsActive ? "Deactivate" : "Activate")
+                        </a>
+                        <a href="@Url.Action("DeleteApplicant", "Admin", new { id = a.ApplicantID })"
+                           class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Are you sure you want to delete this applicant?');">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4 class="mt-5 text-primary">Admission Incharges</h4>
+    <table class="table table-bordered table-hover mt-2">
+        <thead class="table-light">
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in incharges)
+            {
+                <tr>
+                    <td>@i.InchargeID</td>
+                    <td>@i.FullName</td>
+                    <td>@i.Email</td>
+                    <td>@i.PhoneNumber</td>
+                    <td>
+                        @if (i.IsActive)
+                        {
+                            <span class="badge bg-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Inactive</span>
+                        }
+                    </td>
+                    <td>
+                        <a href="@Url.Action("ToggleInchargeStatus", "Admin", new { id = i.InchargeID })"
+                           class="btn btn-sm @(i.IsActive ? "btn-warning" : "btn-success")">
+                            @(i.IsActive ? "Deactivate" : "Activate")
+                        </a>
+                        <a href="@Url.Action("DeleteIncharge", "Admin", new { id = i.InchargeID })"
+                           class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Are you sure you want to delete this incharge?');">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href="@Url.Action("Dashboard","Admin")"
+       class="btn btn-outline-success mb-3">
+        ← Back to Dashboard
+    </a>
+</div>

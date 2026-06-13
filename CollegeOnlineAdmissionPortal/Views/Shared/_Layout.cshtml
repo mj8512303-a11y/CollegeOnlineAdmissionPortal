@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- AdminLTE CSS -->
+   
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            @*@if (Session["Role"] != null && Session["Role"].ToString() == "Admin")
+                {
+                    @Html.Partial("_AdminSidebar")
+                }
+                else if (Session["Role"].ToString() == "AdmissionIncharge")
+                {
+                    @Html.Partial("_InchargeSidebar")
+                }
+                else
+                {
+                    @Html.Partial("_ApplicantSidebar")
+                }*@
+
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    @*<li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>*@
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET COAP Application</p>
+        </footer>
+    </div>
+    <!-- jQuery (REQUIRED) -->
+    <!-- 1️⃣ jQuery (ONLY ONCE) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+   
+
+    <!-- 3️⃣ AdminLTE -->
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+
+    <!-- 4️⃣ Page specific scripts -->
+    @RenderSection("Scripts", required: false)
+
+    <script>
+        console.log("Layout loaded correctly ✅");
+    </script>
+</body>
+</html>

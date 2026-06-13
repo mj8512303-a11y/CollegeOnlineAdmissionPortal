@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CollegeOnlineAdmissionPortal.Models.MeritList>
+@{
+    Layout = "~/Views/Shared/_InchargeLayout.cshtml";
+    var list = ViewBag.MeritList as CollegeOnlineAdmissionPortal.Models.MeritList;
+}
+
+<h3>@list.Course</h3>
+<p class="text-muted">Created on: @list.PublishedDate.<ToString("dd-MM-yyyy")></ToString("dd-MM-yyyy")></p>
+
+<table class="table table-striped table-bordered shadow-sm">
+    <thead class="table-light">
+        <tr>
+            <th>Rank</th>
+            <th>Applicant</th>
+            <th>Total Marks</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detail in Model)
+        {
+            <tr>
+                <td>@detail.'Rank</td>
+                <td>@detail.Course''Applicant.FullName</td>
+                <td>@detail.Course''TotalMarks</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("ViewMeritLists", "Incharge")" class="btn btn-secondary">
+    <i class="bi bi-arrow-left"></i> Back to List
+</a>

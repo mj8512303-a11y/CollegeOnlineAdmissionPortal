@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d9159b72e0614d76b295c3ab729a3444" Name="Diagram1">
+        <EntityTypeShape EntityType="CollegeOnlineAdmissionPortalModel.AcademicDetail" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CollegeOnlineAdmissionPortalModel.Admin" Width="1.5" PointX="1.5" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CollegeOnlineAdmissionPortalModel.AdmissionIncharge" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CollegeOnlineAdmissionPortalModel.Applicant" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CollegeOnlineAdmissionPortalModel.ApplicationForm" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CollegeOnlineAdmissionPortalModel.Department" Width="1.5" PointX="1.5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CollegeOnlineAdmissionPortalModel.Document" Width="1.5" PointX="6" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CollegeOnlineAdmissionPortalModel.MeritList" Width="1.5" PointX="3" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CollegeOnlineAdmissionPortalModel.Payment" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="CollegeOnlineAdmissionPortalModel.Program" Width="1.5" PointX="3.75" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="CollegeOnlineAdmissionPortalModel.FK__AcademicD__Appli__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="CollegeOnlineAdmissionPortalModel.FK__Admission__Assig__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="CollegeOnlineAdmissionPortalModel.FK__Applicati__Incha__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="CollegeOnlineAdmissionPortalModel.FK__MeritList__Creat__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="CollegeOnlineAdmissionPortalModel.FK__Applicati__Appli__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="CollegeOnlineAdmissionPortalModel.FK__Documents__Appli__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="CollegeOnlineAdmissionPortalModel.FK__Payment__Applica__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="CollegeOnlineAdmissionPortalModel.FK__Program__Departm__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="CollegeOnlineAdmissionPortalModel.FK__Documents__Progr__534D60F1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CollegeOnlineAdmissionPortalModel.User" Width="1.5" PointX="6.375" PointY="0.75" />
+        <AssociationConnector Association="CollegeOnlineAdmissionPortalModel.FK_ApplicationForm_MeritList" />
+        <AssociationConnector Association="CollegeOnlineAdmissionPortalModel.FK_ApplicationForm_Program" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
